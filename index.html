@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>YourLife</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>YourLife</h1>
+        <h3>Create your “Ken Burns” style documentary with your biography</h3>
+
+        <form action="/action_page.php">
+            <p>Enter your biography</p>
+            <p> Word Count:
+                <span id="wordCount">0</span>/500
+            </p>
+            <textarea id="bio_text" oninput="countWord()" rows="10" cols="50"></textarea>
+            <br>
+            <input type="submit" value="Submit">
+
+          </form>
+
+        <script src="main.js"></script>
+    </body>
+</html>
