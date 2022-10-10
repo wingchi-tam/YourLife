@@ -14,3 +14,15 @@ function countWord() {
     document.getElementById("wordCount")
         .innerHTML = count;
 }
+
+document.getElementById("bio_text").addEventListener("keypress", function(evt){
+
+    var words = this.value.split(/\s+/);
+    var numWords = words.length;    
+    var maxWords = 500;
+    
+    if(numWords > maxWords){
+      evt.preventDefault(); 
+    }
+  });
+
