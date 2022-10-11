@@ -26,3 +26,8 @@ document.getElementById("bio_text").addEventListener("keypress", function(evt){
     }
   });
 
+  const form  = document.getElementById('inputs');
+
+  form.addEventListener('submit', (event) => {
+    console.log("Hello");
+});
