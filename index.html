@@ -12,7 +12,7 @@
         <h1>YourLife</h1>
         <h3>Create your “Ken Burns” style documentary with your biography</h3>
         
-        <form id="inputs">
+        <form id="user_input">
             <span class="name">
                 Enter your name: <input placeholder="no numbers allowed" type="text" id="name_text" pattern="[A-Za-z\-]{1,20}" title="No numbers or special characters">
             </span>
@@ -20,7 +20,7 @@
             <p>Word Count:
                 <span id="wordCount">0</span>/500
             </p>
-            <input type="text" id="bio_text" oninput="countWord()"  rows="10" cols="50"></textarea>
+            <input type="text" id="bio_text" oninput="countWord()" rows="10" cols="50">
             <br>
             <input type="submit" value="Submit">
           </form>

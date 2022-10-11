@@ -24,10 +24,18 @@ document.getElementById("bio_text").addEventListener("keypress", function(evt){
     if(numWords > maxWords){
       evt.preventDefault(); 
     }
-  });
 
-  const form  = document.getElementById('inputs');
-
-  form.addEventListener('submit', (event) => {
-    console.log("Hello");
+    submitForm();
 });
+
+
+function submitForm() {
+    var form  = document.getElementById('user_input');
+    form.addEventListener('submit', (event) => {
+        console.log("Hello");
+        var name = form.elements['name_text'].value;
+        var bio_text = form.elements['bio_text'].value;
+        console.log(name);
+        console.log(bio_text);
+    })
+};
