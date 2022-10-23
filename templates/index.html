@@ -9,22 +9,161 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>YourLife</h1>
-        <h3>Create your “Ken Burns” style documentary with your biography</h3>
-        
-        <form id="inputs">
-            <span class="name">
-                Enter your name: <input placeholder="no numbers allowed" type="text" id="name_text" pattern="[A-Za-z\-]{1,20}" title="No numbers or special characters">
-            </span>
-            <p>Enter your biography</p>
-            <p>Word Count:
-                <span id="wordCount">0</span>/500
+        <div class="website-heading">
+            <div class="website-title">
+                <h1>YourLife</h1>
+            </div>
+            <div class="website-subtitle">
+                <h3>Create your “Ken Burns” style documentary with your biography</h3>
+            </div>
+        </div>
+
+        <form id="user-inputs" action="{{ url_for('gfg')}}" method="post">
+            <div class="user-name">
+                <p>What is the name of the person you're writing about?
+                <input placeholder="no numbers allowed" type="text" name="name" id="name_text" value = "{{request.form['name']}}" pattern="[A-Za-z\-]{1,20}" title="No numbers or special characters">            
             </p>
-            <input type="text" id="bio_text" oninput="countWord()"  rows="10" cols="50"></textarea>
-            <br>
-            <input type="submit" value="Submit">
+            </div>
+
+            <div class="form-explanation">
+                <p>Tell us more! Keep your answers short, and remember that you don't need to answer every question. Starred questions are required.</p>
+            </div>
+            <div class="childhood-input">
+                <div class="section-heading">
+                    <h3>Childhood</h3>
+                </div>
+                <div class="question">
+                    <p>Where were you born? *
+                    <input type="text" id="childhood-birthplace"></p>
+                </div>
+                <div class="question">
+                    <p>When were you born? *
+                    <input type="text" id="childhood-birthday"></p>
+                </div>
+                <div class="question">
+                    <p>Where did you grow up? *
+                    <input type="text" id="childhood-location"></p>
+                </div>
+                <div class="question">
+                    <p>Describe your childhood in three adjectives.
+                    <input type="text" id="childhood-description"></p>
+                </div>
+            </div>
+            <div class="school-input">
+                <div class="section-heading">
+                    <h3>School</h3>
+                </div>
+                <div class="question">
+                    <p>What high school did you go to?
+                    <input type="text" id="school-highschool"></p>
+                </div>
+                <div class="question">
+                    <p>What was your favorite subject in high school?
+                    <input type="text" id="school-favorite-subject"></p>
+                </div>
+                <div class="question">
+                    <p>What clubs/sports/extracurricular activties did you do?
+                    <input type="text" id="school-activities"></p>
+                </div>
+                <div class="question">
+                    <p>What college/university did you go to?
+                    <input type="text" id="school-college-name"></p>
+                </div>
+                <div class="question">
+                    <p>What did you major in?
+                    <input type="text" id="school-major"></p>
+                </div>
+            </div>
+            <div class="adult-input">
+                <div class="section-heading">
+                    <h3>Adulthood</h3>
+                </div>
+                <div class="question">
+                    <p>What is/was your job? *
+                    <input type="text" id="adult-job"></p>
+                </div>
+                <div class="question">
+                    <p>Where did you work?
+                    <input type="text" id="adult-job-location"></p>
+                </div>
+                <div class="question">
+                    <p>What is your relationship status?</p>
+                    <input type="radio" id="single" name="adult-relationship-status">
+                    <label for="single">Single</label><br>
+                    <input type="radio" id="in-a-relationship" name="adult-relationship-status">
+                    <label for="in-a-relationship">In a relationship</label><br>
+                    <input type="radio" id="married" name="adult-relationship-status">
+                    <label for="married">Married</label><br>
+                    <input type="radio" id="widowed-widower" name="adult-relationship-status">
+                    <label for="widowed-widower">Widowed/widower</label>
+                    </div>
+                </div>                
+                <div class="question">
+                    <p>Who is your current partner?
+                    <input type="text" id="adult-partner-name"> </p>
+                </div>
+                <div class="question">
+                    <p>When you get married?
+                    <input type="text" id="adult-marriage-status"></p>
+                </div>
+                <div class="question">
+                    <p>How many children do you have?
+                    <input type="text" id="adult-child-number"></p>
+                </div>
+                <div class="question">
+                    <p>What are your child(ren)'s name(s)?
+                    <input type="text" id="adult-child-name"></p>
+                </div>
+            </div>
+            <div class="personal-input">
+                <div class="section-heading">
+                    <h3>Personal Life</h3>
+                </div>
+                <div class="question">
+                    <p>Where do you currently live? *
+                    <input type="text" id="personal-location"></p>
+                </div>
+                <div class="question">
+                    <p>What are your hobbies? *
+                    <input type="text" id="personal-hobbies"></p>
+                </div>
+                <div class="question">
+                    <p>What is/are your goal(s)? *
+                    <input type="text" id="personal-goals"></p>
+                </div>
+                <div class="question">
+                    <p>What is your biggest accomplishment? *
+                    <input type="text" id="personal-accomplishment"></p>
+                </div>
+                <div class="question">
+                    <p>What are your pronouns? *</p>
+                    <input type="radio" id="she-her" name="personal-pronouns">
+                    <label for="she-her">She/her</label><br>
+                    <input type="radio" id="he-him" name="personal-pronouns">
+                    <label for="he-him">He/him</label><br>
+                    <input type="radio" id="they-them" name="personal-pronouns">
+                    <label for="they-them">They/them</label>
+                </div>
+                <div class="question">
+                    <p>Describe your current life in one adjective.
+                    <input type="text" id="personal-description"></p>
+                </div>
+            </div>
+            <!-- <input type="text" id="bio_text" oninput="countWord()"  rows="10" cols="50"></textarea> -->
+            <!-- <input type="submit" value="Submit"> -->
+            <button type="submit">Submit</button>
         </form>
-        
+        <div class="hidden" id="generated">
+            <div class="section-heading">
+                <h3>Generated Biography</h3>
+            </div>
+            <div class="generated-biography">
+            </div>
+            <a href="/video.html">
+                <button class="generate-button">Generate Video</button>
+            </a>
+        </div>
+
         <script src="main.js"></script>
     </body>
 </html> 

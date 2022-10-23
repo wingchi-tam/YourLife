@@ -1,3 +1,7 @@
 #name_text {
     resize: None;
 }
+
+.hidden {
+    display: none
+}
