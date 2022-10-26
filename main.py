@@ -23,55 +23,76 @@ def greetings():
     birthday =  request.form.get("childhood-birthday")
     birthplace =  request.form.get("childhood-birthplace")  
     childhood_location =  request.form.get("childhood-location")  
-    job =  request.form.get("adult-job")  
+    childhood_description =  request.form.get("childhood-description")
     curr_living =  request.form.get("personal-location")  
     hobbies =  request.form.get("personal-hobbies")  
     goals =  request.form.get("personal-goals")  
     accomplishment =  request.form.get("personal-accomplishment")
     pronouns = request.form.get("personal-pronouns")
-    required_vars = [name, birthday, birthplace, childhood_location, job, curr_living, hobbies, goals, accomplishment, pronouns]
+    final_word =  request.form.get("personal-description")
+
+    required_vars = [name, birthday, birthplace, childhood_location, childhood_description, curr_living, hobbies, 
+                        goals, accomplishment, pronouns, final_word]
     #check if required vars were entered
     for var in required_vars:
         if var == None:
+            print(var)
             return "Question" +var+" unanswered, try again"
 
     #EXTRA VARS
-    job_location =  request.form.get("adult-job-location") or ""
-    childhood_description =  request.form.get("childhood-description") or ""
-    highschool =  request.form.get("school-highschool") or ""
-    fav_subject =  request.form.get("school-favorite-subject") or ""  
-    school_activities =  request.form.get("school-activities") or ""
-    college =  request.form.get("school-college-name") or ""
-    major =  request.form.get("school-major") or ""
-    curr_partner =  request.form.get("adult-partner-name") or "" 
-    marriage_status =  request.form.get("adult-marriage-status")  or ""
-    children_num =  request.form.get("adult-child-number") or ""
-    child_name =  request.form.get("adult-child-name") or ""
-    final_word =  request.form.get("personal-description") or ""
-    extra_vars = [job_location, childhood_description, highschool, fav_subject, school_activities, college, major, curr_partner,
-                    marriage_status, children_num, child_name, final_word]
-    # extra_sentences = {}
-    # for var in extra_vars:
-    #     if var != "":
-    #         extra_sentences[var] = 
+    highschool =  request.form.get("school-highschool")
+    fav_subject =  request.form.get("school-favorite-subject")   
+    school_activities =  request.form.get("school-activities")  
+    college =  request.form.get("school-college-name")  
+    major =  request.form.get("school-major")  
+    job =  request.form.get("adult-job")  
+    job_location =  request.form.get("adult-job-location")  
+    curr_partner =  request.form.get("adult-partner-name")   
+    relationship_status =  request.form.get("adult-relationship-status")   
+    children_num =  request.form.get("adult-child-number")  
+    child_name =  request.form.get("adult-child-name")  
+    extra_vars = [highschool, fav_subject, school_activities, college, major, job, job_location, curr_partner,
+                    relationship_status, children_num, child_name, final_word]
+
     
     childhood_story = "Hi, my name is Ken Burns and I will be telling the story of " + name + ". Their story begins on " + birthday + " in a little place called " + birthplace +". \
-   Although they were a difficult kid to raise, growing up in "+ childhood_location + ", their childhood was " + adjs + ". <br>"
+   Although they were a difficult kid to raise, growing up in "+ childhood_location + ", their childhood was " + childhood_description + ". <br>"
   
-    school_story = "<br> Maturing through the epic highs and lows of elementary and middle school, "+ name + " finally began their epic adventure at "+ hs +". Despite riding the \
-  emotionally charged rollercoaster that high school is, nothing brightened their days more than attending "+ subject +". Moreover, when tests and classes didn’t fill "+ name + "’s schedule, \
-  they really enjoyed participating in "+ activities +". Yet, as classes, tests and SATs were crunched,\
-   "+ name + " pushed through the hurdles of everything required by college admissions to finally get into their dream school: "+ college +". \
-   There, the parties, clubs, difficult classes, and stressful environment never stopped "+name+" from completing their degree in "+ major +". <br>"
-
-    adulthood_story = "<br> The struggles of real life hit when they started their first job as a "+ role+" at "+job+". Currently, their relationship status is REL_STATUS - who would have thought!. \
-   Their favorite activity at home is cuddling with "+curr_partner+". Despite the temptation to see other people, they’ve been loyally by each other's side since "+meeting_date+". \
-   Due to poor planning, they are now stuck raising "+children_num+" child[ren]. However, they’re all growing up to be amazing people and their names are "+child_name+". <br>"
-
     personal_story = "<br> Now, "+ name +" resides in "+ curr_living +" where they spend their free time doing the things they love such as "+hobbies+". Although "+name+" enjoys their life\
    in "+curr_living+" doing what they love, "+name+" has bigger aspirations. Sometimes, late at night, when everything is quiet and the stars are perfectly aligned,\
-    "+name+" dreams to "+ goals +". Until then, "+name+" relishes on his biggest accomplishment – when they "+big_A+". Living such an eventful life, it seems almost\
-     impossible to capture it all in one word, but if I had to, I would choose s"+final_word+"."
+    "+name+" dreams of "+ goals +". Until then, "+name+" relishes on their biggest accomplishment - when they "+accomplishment+". Living such an eventful life, it seems almost\
+     impossible to capture it all in one word, but if I had to, I would choose "+final_word+"."
+
+    school_story = ""
+    if highschool:
+        school_story += "<br> Maturing through the epic highs and lows of elementary and middle school, "+ name + " finally began their epic adventure at "+ highschool +"."
+    
+    if fav_subject:
+        school_story += "Despite riding the emotionally charged rollercoaster that high school is, nothing brightened their days more than attending "+ fav_subject +"."
+        
+    if school_activities:
+        school_story += "Moreover, when tests and classes didn't fill "+ name + "'s schedule, they really enjoyed participating in "+ school_activities +"."
+        
+    if college:
+        school_story += "Yet, as classes, tests and SATs were crunched, "+ name + " pushed through the hurdles of everything required by college admissions to finally get into their dream school: "+ college +"."
+
+    if major:
+        school_story += "There, the parties, clubs, difficult classes, and stressful environment never stopped "+name+" from completing their degree in "+ major +"."
+
+    adulthood_story = ""
+
+    if job and job_location:
+        adulthood_story += "<br> The struggles of real life hit when they started their first job as a "+ job+" at "+job_location+"."
+        
+    if relationship_status:
+        adulthood_story += "Currently, their relationship status is "+relationship_status+" - who would have thought!."
+
+    if curr_partner:
+        adulthood_story += "Their favorite activity at home is cuddling with "+curr_partner+"." 
+        
+    if children_num != "0":
+        adulthood_story += "They are now raising "+children_num+" child[ren]. However, they're all growing up to be amazing people and their names are "+child_name+". <br>"
+
 
     return childhood_story + school_story + adulthood_story + personal_story
 
