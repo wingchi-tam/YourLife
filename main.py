@@ -1,4 +1,5 @@
 from distutils.log import error
+from lib2to3.pytree import convert
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
@@ -39,6 +40,9 @@ def greetings():
             print(var)
             return "Question" +var+" unanswered, try again"
 
+    user_pronouns = convert_pronouns(pronouns)
+    print(pronouns)
+
     #EXTRA VARS
     highschool =  request.form.get("school-highschool")
     fav_subject =  request.form.get("school-favorite-subject")   
@@ -55,45 +59,63 @@ def greetings():
                     relationship_status, children_num, child_name, final_word]
 
     
-    childhood_story = "Hi, my name is Ken Burns and I will be telling the story of " + name + ". Their story begins on " + birthday + " in a little place called " + birthplace +". \
-   Although they were a difficult kid to raise, growing up in "+ childhood_location + ", their childhood was " + childhood_description + ". <br>"
+    childhood_story = "Hi, my name is Ken Burns and I will be telling the story of " + name + ". "+user_pronouns["possessive_adj"].capitalize()+" story begins on " + birthday + " in a little place called " + birthplace +". \
+   Although "+user_pronouns["subject"]+" were a difficult kid to raise, growing up in "+ childhood_location + ", "+user_pronouns["possessive_adj"]+" childhood was " + childhood_description + ". <br>"
   
-    personal_story = "<br> Now, "+ name +" resides in "+ curr_living +" where they spend their free time doing the things they love such as "+hobbies+". Although "+name+" enjoys their life\
-   in "+curr_living+" doing what they love, "+name+" has bigger aspirations. Sometimes, late at night, when everything is quiet and the stars are perfectly aligned,\
-    "+name+" dreams of "+ goals +". Until then, "+name+" relishes on their biggest accomplishment - when they "+accomplishment+". Living such an eventful life, it seems almost\
+    personal_story = "<br> Now, "+ name +" resides in "+ curr_living +" where "+user_pronouns["subject"]+" spend "+user_pronouns["possessive_adj"]+" free time doing the things "+user_pronouns["subject"]+" love such as "+hobbies+". \
+    Although "+name+" enjoys "+user_pronouns["possessive_adj"]+" life in "+curr_living+" doing what "+user_pronouns["subject"]+" love, "+name+" has bigger aspirations. Sometimes, late at night, when everything is quiet and the stars are perfectly aligned,\
+    "+name+" dreams of "+ goals +". Until then, "+name+" relishes on "+user_pronouns["possessive_adj"]+" biggest accomplishment: "+accomplishment+". Living such an eventful life, it seems almost\
      impossible to capture it all in one word, but if I had to, I would choose "+final_word+"."
 
     school_story = ""
     if highschool:
-        school_story += "<br> Maturing through the epic highs and lows of elementary and middle school, "+ name + " finally began their epic adventure at "+ highschool +"."
+        school_story += "<br> Maturing through the epic highs and lows of elementary and middle school, "+ name + " finally began "+user_pronouns["possessive_adj"]+" epic adventure at "+ highschool +"."
     
     if fav_subject:
-        school_story += "Despite riding the emotionally charged rollercoaster that high school is, nothing brightened their days more than attending "+ fav_subject +"."
+        school_story += "Despite riding the emotionally charged rollercoaster that high school is, nothing brightened "+user_pronouns["possessive_adj"]+" days more than attending "+ fav_subject +"."
         
     if school_activities:
         school_story += "Moreover, when tests and classes didn't fill "+ name + "'s schedule, they really enjoyed participating in "+ school_activities +"."
         
     if college:
-        school_story += "Yet, as classes, tests and SATs were crunched, "+ name + " pushed through the hurdles of everything required by college admissions to finally get into their dream school: "+ college +"."
+        school_story += "Yet, as classes, tests and SATs were crunched, "+ name + " pushed through the hurdles of everything required by college admissions to finally get into "+user_pronouns["possessive_adj"]+" dream school: "+ college +"."
 
     if major:
-        school_story += "There, the parties, clubs, difficult classes, and stressful environment never stopped "+name+" from completing their degree in "+ major +"."
+        school_story += "There, the parties, clubs, difficult classes, and stressful environment never stopped "+name+" from completing "+user_pronouns["possessive_adj"]+" degree in "+ major +"."
 
     adulthood_story = ""
 
     if job and job_location:
-        adulthood_story += "<br> The struggles of real life hit when they started their first job as a "+ job+" at "+job_location+"."
+        adulthood_story += "<br> The struggles of real life hit when they started "+user_pronouns["possessive_adj"]+" first job as a "+ job+" at "+job_location+"."
         
     if relationship_status:
-        adulthood_story += "Currently, their relationship status is "+relationship_status+" - who would have thought!."
+        adulthood_story += "Currently, "+user_pronouns["possessive_adj"]+" relationship status is "+relationship_status+" - who would have thought!."
 
     if curr_partner:
-        adulthood_story += "Their favorite activity at home is cuddling with "+curr_partner+"." 
+        adulthood_story += user_pronouns["possessive_adj"].capitalize()+" favorite activity at home is cuddling with "+curr_partner+"." 
         
     if children_num != "0":
-        adulthood_story += "They are now raising "+children_num+" child[ren]. However, they're all growing up to be amazing people and their names are "+child_name+". <br>"
+        adulthood_story += user_pronouns["subject"].capitalize()+" are now raising "+children_num+" child[ren]. However, they're all growing up to be amazing people and "+user_pronouns["possessive_adj"]+" names are "+child_name+". <br>"
 
 
     return childhood_story + school_story + adulthood_story + personal_story
 
   
+def convert_pronouns(pronouns):
+    user_pronouns = {}
+    if pronouns == "she-her":
+        user_pronouns["possessive_adj"] = "her"
+        user_pronouns["subject"] = "she"
+        user_pronouns["possessive_pro"] = "hers"
+        user_pronouns["relative"] = "herself"
+    elif pronouns == "he-him":
+        user_pronouns["possessive_adj"] = "his"
+        user_pronouns["subject"] = "he"
+        user_pronouns["possessive_pro"] = "his"
+        user_pronouns["relative"] = "himself"
+    else:
+        user_pronouns["possessive_adj"] = "their"
+        user_pronouns["subject"] = "they"
+        user_pronouns["possessive_pro"] = "theirs"
+        user_pronouns["relative"] = "themself"
+    return user_pronouns
