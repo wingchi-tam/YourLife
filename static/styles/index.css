@@ -9,11 +9,23 @@
 .website-body {
     display: flex;
     justify-content: space-between;
-    padding-right: 300px;
+    /* padding-right: 300px; */
     padding-top: 20px;
 
 }
 
 .website-heading {
     text-align: center;
+}
+
+form, #generated {
+    width: 650px;
+}
+
+.generate-button {
+    margin-top: 20px;
+}
+
+.generate-biography {
+    text-align: justify;
 }
