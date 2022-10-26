@@ -10,7 +10,8 @@ app = Flask(__name__)
 @app.route('/', methods =["GET", "POST"])
 def gfg():
     if request.method == "POST":
-       return greetings()
+       biography = greetings()
+       return render_template("index.html", biography=biography)
     return render_template("index.html")
 
 if __name__ == '__main__':
