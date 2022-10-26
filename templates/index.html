@@ -18,155 +18,151 @@
             </div>
         </div>
 
-        <form id="user-inputs" action="{{ url_for('gfg')}}" method="post">
-            <div class="user-name">
-                <p>What is the name of the person you're writing about? *
-                <input placeholder="no numbers allowed" type="text" name="name" id="name_text" pattern="[A-Za-z\-\s]{1,20}" title="No numbers or special characters">            
-            </p>
-            </div>
-
-            <div class="form-explanation">
-                <p>Tell us more! Keep your answers short, and remember that you don't need to answer every question. Starred questions are required.</p>
-            </div>
-            <div class="personal-input">
-                <div class="section-heading">
-                    <h3>Personal Life</h3>
+        <div class="website-body">
+            <form id="user-inputs" action="{{ url_for('gfg')}}" method="post">
+                <div class="user-name">
+                    <p>What is the name of the person you're writing about? *
+                    <input placeholder="no numbers allowed" type="text" name="name" id="name_text" pattern="[A-Za-z\-\s]{1,20}" title="No numbers or special characters">            
+                </p>
                 </div>
-                <div class="question">
-                    <p>Where do you currently live? *
-                    <input type="text" name="personal-location" placeholder="ex: Chicago, Illinois"></p>
+                <div class="form-explanation">
+                    <p>Tell us more! Keep your answers short, and remember that you don't need to answer every question. Starred questions are required.</p>
                 </div>
-                <div class="question">
-                    <p>What are your hobbies? *
-                    <input type="text" name="personal-hobbies" placeholder="ex: cooking and baking"></p>
-                </div>
-                <div class="question">
-                    <p>What is/are your goal(s)? *
-                    <input type="text" name="personal-goals" placeholder="ex: having a Michelin star"></p>
-                </div>
-                <div class="question">
-                    <p>What is your biggest accomplishment? *
-                    <input type="text" name="personal-accomplishment" placeholder="ex: owning a restaurant"></p>
-                </div>
-                <div class="question">
-                    <p>What are your pronouns? *</p>
-                    <input type="radio" id="she-her" value="she-her" name="personal-pronouns">
-                    <label for="she-her">She/her</label><br>
-                    <input type="radio" id="he-him" value="he-him" name="personal-pronouns">
-                    <label for="he-him">He/him</label><br>
-                    <input type="radio" id="they-them" value="they-them" name="personal-pronouns" checked>
-                    <label for="they-them">They/them</label>
-                </div>
-                <div class="question">
-                    <p>Describe your current life in one adjective. *
-                    <input type="text" name="personal-description"></p>
-                </div>
-            </div>
-            <div class="childhood-input">
-                <div class="section-heading">
-                    <h3>Childhood</h3>
-                </div>
-                <div class="question">
-                    <p>Where were you born? *
-                    <input type="text"  name="childhood-birthplace" placeholder="ex: Haiphong, Vietnam"></p>
-                </div>
-                <div class="question">
-                    <p>When were you born? *
-                    <input type="text" name="childhood-birthday" placeholder="ex: May 4, 2001"></p>
-                </div>
-                <div class="question">
-                    <p>Where did you grow up? *
-                    <input type="text" name="childhood-location"></p>
-                </div>
-                <div class="question">
-                    <p>Describe your childhood in three adjectives. *
-                    <input type="text" name="childhood-description" placeholder="ex: fun, silly, and carefree"></p>
-                </div>
-            </div>
-            <div class="school-input">
-                <div class="section-heading">
-                    <h3>School</h3>
-                </div>
-                <div class="question">
-                    <p>What high school did you go to?
-                    <input type="text" name="school-highschool"></p>
-                </div>
-                <div class="question">
-                    <p>What was your favorite subject in high school?
-                    <input type="text" name="school-favorite-subject"></p>
-                </div>
-                <div class="question">
-                    <p>What clubs/sports/extracurricular activties did you do?
-                    <input type="text" name="school-activities" placeholder="ex: debate club, basketball, and football"></p>
-                </div>
-                <div class="question">
-                    <p>What college/university did you go to?
-                    <input type="text" name="school-college-name"></p>
-                </div>
-                <div class="question">
-                    <p>What did you major in?
-                    <input type="text" name="school-major" placeholder="ex: Biology"></p>
-                </div>
-            </div>
-            <div class="adult-input">
-                <div class="section-heading">
-                    <h3>Adulthood</h3>
-                </div>
-                <div class="question">
-                    <p>What is/was your job?
-                    <input type="text" name="adult-job" placeholder="ex: executive chef"></p>
-                </div>
-                <div class="question">
-                    <p>Where did you work?
-                    <input type="text" name="adult-job-location" placeholder="ex: The French Laundry"></p>
-                </div>
-                <div class="question">
-                    <p>What is your relationship status?</p>
-                    <input type="radio" id="single" value="single" name="adult-relationship-status">
-                    <label for="single">Single</label><br>
-                    <input type="radio" id="in-a-relationship" value="in a relationship" name="adult-relationship-status">
-                    <label for="in-a-relationship">In a relationship</label><br>
-                    <input type="radio" id="married" value="married" name="adult-relationship-status">
-                    <label for="married">Married</label><br>
-                    <input type="radio" id="widowed-widower" value="widowed-widower" name="adult-relationship-status">
-                    <label for="widowed-widower">Widowed/widower</label>
+                <div class="personal-input">
+                    <div class="section-heading">
+                        <h3>Personal Life</h3>
                     </div>
-                </div>                
-                <div class="question">
-                    <p>Who is your current partner?
-                    <input type="text" name="adult-partner-name"> </p>
+                    <div class="question">
+                        <p>Where do you currently live? *
+                        <input type="text" name="personal-location" placeholder="ex: Chicago, Illinois"></p>
+                    </div>
+                    <div class="question">
+                        <p>What are your hobbies? *
+                        <input type="text" name="personal-hobbies" placeholder="ex: cooking and baking"></p>
+                    </div>
+                    <div class="question">
+                        <p>What is/are your goal(s)? *
+                        <input type="text" name="personal-goals" placeholder="ex: having a Michelin star"></p>
+                    </div>
+                    <div class="question">
+                        <p>What is your biggest accomplishment? *
+                        <input type="text" name="personal-accomplishment" placeholder="ex: owning a restaurant"></p>
+                    </div>
+                    <div class="question">
+                        <p>What are your pronouns? *</p>
+                        <input type="radio" id="she-her" value="she-her" name="personal-pronouns">
+                        <label for="she-her">She/her</label><br>
+                        <input type="radio" id="he-him" value="he-him" name="personal-pronouns">
+                        <label for="he-him">He/him</label><br>
+                        <input type="radio" id="they-them" value="they-them" name="personal-pronouns" checked>
+                        <label for="they-them">They/them</label>
+                    </div>
+                    <div class="question">
+                        <p>Describe your current life in one adjective. *
+                        <input type="text" name="personal-description"></p>
+                    </div>
                 </div>
-                <div class="question">
-                    <p>When you get married?
-                    <input type="text" name="adult-marriage-status" placeholder="ex: September 9, 2019"></p>
+                <div class="childhood-input">
+                    <div class="section-heading">
+                        <h3>Childhood</h3>
+                    </div>
+                    <div class="question">
+                        <p>Where were you born? *
+                        <input type="text"  name="childhood-birthplace" placeholder="ex: Haiphong, Vietnam"></p>
+                    </div>
+                    <div class="question">
+                        <p>When were you born? *
+                        <input type="text" name="childhood-birthday" placeholder="ex: May 4, 2001"></p>
+                    </div>
+                    <div class="question">
+                        <p>Where did you grow up? *
+                        <input type="text" name="childhood-location"></p>
+                    </div>
+                    <div class="question">
+                        <p>Describe your childhood in three adjectives. *
+                        <input type="text" name="childhood-description" placeholder="ex: fun, silly, and carefree"></p>
+                    </div>
                 </div>
-                <div class="question">
-                    <p>How many children do you have?
-                    <input type="text" name="adult-child-number" value="0"></p>
+                <div class="school-input">
+                    <div class="section-heading">
+                        <h3>School</h3>
+                    </div>
+                    <div class="question">
+                        <p>What high school did you go to?
+                        <input type="text" name="school-highschool"></p>
+                    </div>
+                    <div class="question">
+                        <p>What was your favorite subject in high school?
+                        <input type="text" name="school-favorite-subject"></p>
+                    </div>
+                    <div class="question">
+                        <p>What clubs/sports/extracurricular activties did you do?
+                        <input type="text" name="school-activities" placeholder="ex: debate club, basketball, and football"></p>
+                    </div>
+                    <div class="question">
+                        <p>What college/university did you go to?
+                        <input type="text" name="school-college-name"></p>
+                    </div>
+                    <div class="question">
+                        <p>What did you major in?
+                        <input type="text" name="school-major" placeholder="ex: Biology"></p>
+                    </div>
                 </div>
-                <div class="question">
-                    <p>What are your child(ren)'s name(s)?
-                    <input type="text" name="adult-child-name"></p>
+                <div class="adult-input">
+                    <div class="section-heading">
+                        <h3>Adulthood</h3>
+                    </div>
+                    <div class="question">
+                        <p>What is/was your job?
+                        <input type="text" name="adult-job" placeholder="ex: executive chef"></p>
+                    </div>
+                    <div class="question">
+                        <p>Where did you work?
+                        <input type="text" name="adult-job-location" placeholder="ex: The French Laundry"></p>
+                    </div>
+                    <div class="question">
+                        <p>What is your relationship status?</p>
+                        <input type="radio" id="single" value="single" name="adult-relationship-status">
+                        <label for="single">Single</label><br>
+                        <input type="radio" id="in-a-relationship" value="in a relationship" name="adult-relationship-status">
+                        <label for="in-a-relationship">In a relationship</label><br>
+                        <input type="radio" id="married" value="married" name="adult-relationship-status">
+                        <label for="married">Married</label><br>
+                        <input type="radio" id="widowed-widower" value="widowed-widower" name="adult-relationship-status">
+                        <label for="widowed-widower">Widowed/widower</label>
+                    </div>                
+                    <div class="question">
+                        <p>Who is your current partner?
+                        <input type="text" name="adult-partner-name"> </p>
+                    </div>
+                    <div class="question">
+                        <p>When you get married?
+                        <input type="text" name="adult-marriage-status" placeholder="ex: September 9, 2019"></p>
+                    </div>
+                    <div class="question">
+                        <p>How many children do you have?
+                        <input type="text" name="adult-child-number" value="0"></p>
+                    </div>
+                    <div class="question">
+                        <p>What are your child(ren)'s name(s)?
+                        <input type="text" name="adult-child-name"></p>
+                    </div>
                 </div>
+                <!-- <input type="text" id="bio_text" oninput="countWord()"  rows="10" cols="50"></textarea> -->
+                <!-- <input type="submit" value="Submit"> -->
+                <button onclick="greetings()"> Submit </button> <br>
+            </form>
+            <div class="hidden" id="generated">
+                <div class="section-heading">
+                    <h3>Generated Biography</h3>
+                </div>
+                <div class="generated-biography">
+                </div>
+                <a href="/video.html">
+                    <button class="generate-button">Generate Video</button>
+                </a>
             </div>
-            <!-- <input type="text" id="bio_text" oninput="countWord()"  rows="10" cols="50"></textarea> -->
-            <!-- <input type="submit" value="Submit"> -->
-            <button onclick="greetings()"> Submit </button> <br>
-
-        </form>
-        <div class="hidden" id="generated">
-            <div class="section-heading">
-                <h3>Generated Biography</h3>
-            </div>
-            <div class="generated-biography">
-            </div>
-            <a href="/video.html">
-                <button class="generate-button">Generate Video</button>
-            </a>
         </div>
-
         <script src="main.js"></script>
     </body>
 </html> 
-
-<!-- action="/action_page.php" onkeydown="wordLimit()" -->

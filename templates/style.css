@@ -1,3 +1,19 @@
 #name_text {
     resize: None;
 }
+
+/* .hidden {
+    display: none;
+} */
+
+.website-body {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 300px;
+    padding-top: 20px;
+
+}
+
+.website-heading {
+    text-align: center;
+}

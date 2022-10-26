@@ -10,8 +10,6 @@ app = Flask(__name__)
 @app.route('/', methods =["GET", "POST"])
 def gfg():
     if request.method == "POST":
-       # getting input with name = fname in HTML form
-       first_name = request.form.get("name")
        return greetings()
     return render_template("index.html")
 
@@ -100,7 +98,6 @@ def greetings():
 
     return childhood_story + school_story + adulthood_story + personal_story
 
-  
 def convert_pronouns(pronouns):
     user_pronouns = {}
     if pronouns == "she-her":
@@ -125,3 +122,4 @@ def convert_pronouns(pronouns):
         user_pronouns["verb"] = "were"
 
     return user_pronouns
+
