@@ -20,8 +20,8 @@
 
         <form id="user-inputs" action="{{ url_for('gfg')}}" method="post">
             <div class="user-name">
-                <p>What is the name of the person you're writing about?
-                <input placeholder="no numbers allowed" type="text" name="name" id="name_text" pattern="[A-Za-z\-]{1,20}" title="No numbers or special characters">            
+                <p>What is the name of the person you're writing about? *
+                <input placeholder="no numbers allowed" type="text" name="name" id="name_text" pattern="[A-Za-z\-\s]{1,20}" title="No numbers or special characters">            
             </p>
             </div>
 
@@ -34,19 +34,19 @@
                 </div>
                 <div class="question">
                     <p>Where do you currently live? *
-                    <input type="text" name="personal-location"></p>
+                    <input type="text" name="personal-location" placeholder="ex: Chicago, Illinois"></p>
                 </div>
                 <div class="question">
                     <p>What are your hobbies? *
-                    <input type="text" name="personal-hobbies"></p>
+                    <input type="text" name="personal-hobbies" placeholder="ex: cooking and baking"></p>
                 </div>
                 <div class="question">
                     <p>What is/are your goal(s)? *
-                    <input type="text" name="personal-goals"></p>
+                    <input type="text" name="personal-goals" placeholder="ex: having a Michelin star"></p>
                 </div>
                 <div class="question">
                     <p>What is your biggest accomplishment? *
-                    <input type="text" name="personal-accomplishment"></p>
+                    <input type="text" name="personal-accomplishment" placeholder="ex: owning a restaurant"></p>
                 </div>
                 <div class="question">
                     <p>What are your pronouns? *</p>
@@ -54,7 +54,7 @@
                     <label for="she-her">She/her</label><br>
                     <input type="radio" id="he-him" value="he-him" name="personal-pronouns">
                     <label for="he-him">He/him</label><br>
-                    <input type="radio" id="they-them" value="they-them" name="personal-pronouns">
+                    <input type="radio" id="they-them" value="they-them" name="personal-pronouns" checked>
                     <label for="they-them">They/them</label>
                 </div>
                 <div class="question">
@@ -68,11 +68,11 @@
                 </div>
                 <div class="question">
                     <p>Where were you born? *
-                    <input type="text"  name="childhood-birthplace"></p>
+                    <input type="text"  name="childhood-birthplace" placeholder="ex: Haiphong, Vietnam"></p>
                 </div>
                 <div class="question">
                     <p>When were you born? *
-                    <input type="text" name="childhood-birthday"></p>
+                    <input type="text" name="childhood-birthday" placeholder="ex: May 4, 2001"></p>
                 </div>
                 <div class="question">
                     <p>Where did you grow up? *
@@ -80,7 +80,7 @@
                 </div>
                 <div class="question">
                     <p>Describe your childhood in three adjectives. *
-                    <input type="text" name="childhood-description"></p>
+                    <input type="text" name="childhood-description" placeholder="ex: fun, silly, and carefree"></p>
                 </div>
             </div>
             <div class="school-input">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="question">
                     <p>What clubs/sports/extracurricular activties did you do?
-                    <input type="text" name="school-activities"></p>
+                    <input type="text" name="school-activities" placeholder="ex: debate club, basketball, and football"></p>
                 </div>
                 <div class="question">
                     <p>What college/university did you go to?
@@ -105,7 +105,7 @@
                 </div>
                 <div class="question">
                     <p>What did you major in?
-                    <input type="text" name="school-major"></p>
+                    <input type="text" name="school-major" placeholder="ex: Biology"></p>
                 </div>
             </div>
             <div class="adult-input">
@@ -114,11 +114,11 @@
                 </div>
                 <div class="question">
                     <p>What is/was your job?
-                    <input type="text" name="adult-job"></p>
+                    <input type="text" name="adult-job" placeholder="ex: executive chef"></p>
                 </div>
                 <div class="question">
                     <p>Where did you work?
-                    <input type="text" name="adult-job-location"></p>
+                    <input type="text" name="adult-job-location" placeholder="ex: The French Laundry"></p>
                 </div>
                 <div class="question">
                     <p>What is your relationship status?</p>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="question">
                     <p>When you get married?
-                    <input type="text" name="adult-marriage-status"></p>
+                    <input type="text" name="adult-marriage-status" placeholder="ex: September 9, 2019"></p>
                 </div>
                 <div class="question">
                     <p>How many children do you have?
