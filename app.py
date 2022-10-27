@@ -11,10 +11,11 @@ app = Flask(__name__)
 @app.route('/', methods =["GET", "POST"])
 def gfg():
     if request.method == "POST":
-       biography = greetings()
+       biography = generate_bio()
        create_audio(biography)
-       return render_template("index.html", biography=biography)
-    return render_template("index.html")
+       bio_class="user_generated"
+       return render_template("index.html", biography=biography, bio_class=bio_class)
+    return render_template("index.html", bio_class="hidden")
 
 @app.route('/video')
 def video():
@@ -23,7 +24,7 @@ def video():
 if __name__ == '__main__':
     app.run(debug=True)
 
-def greetings():
+def generate_bio():
     #REQUIRED VARS
     name = request.form.get("name") 
     birthday =  request.form.get("childhood-birthday")
@@ -64,8 +65,8 @@ def greetings():
                     relationship_status, children_num, child_name, final_word]
 
     
-    childhood_story = "Hi, my name is Ken Burns and I will be telling the story of " + name + ". "+user_pronouns["possessive_adj"].capitalize()+" story begins on " + birthday + " in a little place called " + birthplace +". \
-   Although "+user_pronouns["subject"]+" "+user_pronouns["verb"]+" a difficult kid to raise, growing up in "+ childhood_location + ", "+user_pronouns["possessive_adj"]+" childhood was " + childhood_description + ".  "
+    childhood_story = "Hi, my name is Ken Burns and I will be telling the story of " + name + ". "+user_pronouns["possessive_adj"].capitalize()+" story begins on " + birthday + " in a place called " + birthplace +". \
+    Growing up in "+ childhood_location + ", "+user_pronouns["possessive_adj"]+" childhood was " + childhood_description + ".  "
   
     personal_story = "  Now, "+ name +" resides in "+ curr_living +", spending "+user_pronouns["possessive_adj"]+" free time doing the things "+user_pronouns["subject"]+" love such as "+hobbies+". \
     Although "+name+" enjoys "+user_pronouns["possessive_adj"]+" life in "+curr_living+", "+name+" has bigger aspirations. Sometimes, late at night, when everything is quiet and the stars are perfectly aligned,\
@@ -94,7 +95,7 @@ def greetings():
         adulthood_story += "  The struggles of real life hit when "+user_pronouns["subject"]+" started "+user_pronouns["possessive_adj"]+" first job as a "+ job+" at "+job_location+". "
         
     if relationship_status:
-        adulthood_story += "Currently, "+user_pronouns["possessive_adj"]+" relationship status is "+relationship_status+" - who would have thought! "
+        adulthood_story += "Currently, "+user_pronouns["possessive_adj"]+" relationship status is "+relationship_status+". "
 
     if curr_partner:
         adulthood_story += user_pronouns["possessive_adj"].capitalize()+" favorite activity at home is cuddling with "+curr_partner+". " 
