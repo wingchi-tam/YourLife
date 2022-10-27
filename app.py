@@ -1,6 +1,7 @@
 from distutils.log import error
 from lib2to3.pytree import convert
 from flask import Flask, render_template, request
+from gtts import gTTS
 app = Flask(__name__)
 
 # @app.route('/')
@@ -11,6 +12,7 @@ app = Flask(__name__)
 def gfg():
     if request.method == "POST":
        biography = greetings()
+       create_audio(biography)
        return render_template("index.html", biography=biography)
     return render_template("index.html")
 
@@ -128,3 +130,10 @@ def convert_pronouns(pronouns):
 
     return user_pronouns
 
+def create_audio(biography):
+    bio = biography
+    language = 'en'
+  
+    myobj = gTTS(text=biography, lang=language, slow=False)
+  
+    myobj.save("soundtrack.mp3")
