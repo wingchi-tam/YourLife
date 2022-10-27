@@ -63,16 +63,16 @@ def greetings():
 
     
     childhood_story = "Hi, my name is Ken Burns and I will be telling the story of " + name + ". "+user_pronouns["possessive_adj"].capitalize()+" story begins on " + birthday + " in a little place called " + birthplace +". \
-   Although "+user_pronouns["subject"]+" "+user_pronouns["verb"]+" a difficult kid to raise, growing up in "+ childhood_location + ", "+user_pronouns["possessive_adj"]+" childhood was " + childhood_description + ". <br>"
+   Although "+user_pronouns["subject"]+" "+user_pronouns["verb"]+" a difficult kid to raise, growing up in "+ childhood_location + ", "+user_pronouns["possessive_adj"]+" childhood was " + childhood_description + ".  "
   
-    personal_story = "<br> Now, "+ name +" resides in "+ curr_living +", spending "+user_pronouns["possessive_adj"]+" free time doing the things "+user_pronouns["subject"]+" love such as "+hobbies+". \
+    personal_story = "  Now, "+ name +" resides in "+ curr_living +", spending "+user_pronouns["possessive_adj"]+" free time doing the things "+user_pronouns["subject"]+" love such as "+hobbies+". \
     Although "+name+" enjoys "+user_pronouns["possessive_adj"]+" life in "+curr_living+", "+name+" has bigger aspirations. Sometimes, late at night, when everything is quiet and the stars are perfectly aligned,\
     "+name+" dreams of "+ goals +". Until then, "+name+" relishes on "+user_pronouns["possessive_adj"]+" biggest accomplishment: "+accomplishment+". Living such an eventful life, it seems almost\
      impossible to capture it all in one word, but if I had to, I would choose "+final_word+"."
 
     school_story = ""
     if highschool:
-        school_story += "<br> Maturing through the epic highs and lows of elementary and middle school, "+ name + " finally began "+user_pronouns["possessive_adj"]+" epic adventure at "+ highschool +". "
+        school_story += "  Maturing through the epic highs and lows of elementary and middle school, "+ name + " finally began "+user_pronouns["possessive_adj"]+" epic adventure at "+ highschool +". "
     
     if fav_subject:
         school_story += "Despite riding the emotionally charged rollercoaster that high school is, nothing brightened "+user_pronouns["possessive_adj"]+" days more than attending "+ fav_subject +". "
@@ -89,7 +89,7 @@ def greetings():
     adulthood_story = ""
 
     if job and job_location:
-        adulthood_story += "<br> The struggles of real life hit when "+user_pronouns["subject"]+" started "+user_pronouns["possessive_adj"]+" first job as a "+ job+" at "+job_location+". "
+        adulthood_story += "  The struggles of real life hit when "+user_pronouns["subject"]+" started "+user_pronouns["possessive_adj"]+" first job as a "+ job+" at "+job_location+". "
         
     if relationship_status:
         adulthood_story += "Currently, "+user_pronouns["possessive_adj"]+" relationship status is "+relationship_status+" - who would have thought! "
@@ -98,10 +98,10 @@ def greetings():
         adulthood_story += user_pronouns["possessive_adj"].capitalize()+" favorite activity at home is cuddling with "+curr_partner+". " 
         
     if children_num != "0" and children_num > 1:
-        adulthood_story += name +" is now also raising "+children_num+" children. Thanks to their amazing job at being a parent, they're all growing up to be amazing people and their names are "+child_name+". <br>"
+        adulthood_story += name +" is now also raising "+children_num+" children. Thanks to their amazing job at being a parent, they're all growing up to be amazing people and their names are "+child_name+".  "
     
     if children_num == 1:
-        adulthood_story += name + " is now also raising a child. Thanks to their amazing job at being a parent, they're growing up to be an amazing person and their name is "+child_name+". <br>"
+        adulthood_story += name + " is now also raising a child. Thanks to their amazing job at being a parent, they're growing up to be an amazing person and their name is "+child_name+".  "
 
 
     return childhood_story + school_story + adulthood_story + personal_story
