@@ -101,7 +101,7 @@ def greetings():
         adulthood_story += user_pronouns["subject"].capitalize()+" are now raising "+children_num+" children. However, they're all growing up to be amazing people and their names are "+child_name+". <br>"
     
     if children_num == 1:
-        adulthood_story += user_pronouns["subject"].capitalize()+" are now raising a child. However, they're all growing up to be amazing people and their names are "+child_name+". <br>"
+        adulthood_story += user_pronouns["subject"].capitalize()+" are now raising a child. However, they're growing up to be an amazing person and their name is "+child_name+". <br>"
 
 
     return childhood_story + school_story + adulthood_story + personal_story
