@@ -98,10 +98,10 @@ def greetings():
         adulthood_story += user_pronouns["possessive_adj"].capitalize()+" favorite activity at home is cuddling with "+curr_partner+". " 
         
     if children_num != "0" and children_num > 1:
-        adulthood_story += user_pronouns["subject"].capitalize()+" are now raising "+children_num+" children. However, they're all growing up to be amazing people and their names are "+child_name+". <br>"
+        adulthood_story += name +" is now also raising "+children_num+" children. Thanks to their amazing job at being a parent, they're all growing up to be amazing people and their names are "+child_name+". <br>"
     
     if children_num == 1:
-        adulthood_story += user_pronouns["subject"].capitalize()+" are now raising a child. However, they're growing up to be an amazing person and their name is "+child_name+". <br>"
+        adulthood_story += name + " is now also raising a child. Thanks to their amazing job at being a parent, they're growing up to be an amazing person and their name is "+child_name+". <br>"
 
 
     return childhood_story + school_story + adulthood_story + personal_story
