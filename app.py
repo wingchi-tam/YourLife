@@ -3,8 +3,11 @@ from lib2to3.pytree import convert
 from flask import Flask, render_template, request
 from gtts import gTTS
 from icrawler.builtin import GoogleImageCrawler
-app = Flask(__name__)
+import ffmpeg
+import os
 
+
+app = Flask(__name__)
 
 @app.route('/', methods =["GET", "POST"])
 def gfg():
@@ -20,6 +23,7 @@ def gfg():
 def video():
     create_audio(biography)
     generate_image(required_vars, extra_vars)
+    generate_video()
     return render_template('video.html')
 
 if __name__ == '__main__':
@@ -160,4 +164,7 @@ def generate_image(required_vars, extra_vars):
         google_crawler = GoogleImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
     downloader_threads=4)
         google_crawler.crawl(keyword= item, max_num=3, file_idx_offset='auto')
+
+def generate_video():
+    os.system("ffmpeg -framerate 1 -i img\%06d.jpg -c:v libx264 -r 30 test_output.mp4")
         
