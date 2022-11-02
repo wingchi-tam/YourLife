@@ -2,7 +2,7 @@ from distutils.log import error
 from lib2to3.pytree import convert
 from flask import Flask, render_template, request
 from gtts import gTTS
-from icrawler.builtin import GoogleImageCrawler
+from icrawler.builtin import GoogleImageCrawler, BingImageCrawler
 import ffmpeg
 import os
 
@@ -21,6 +21,7 @@ def gfg():
 
 @app.route('/video')
 def video():
+    clear_pregenerated()
     create_audio(biography)
     generate_image(required_vars, extra_vars)
     generate_video()
@@ -66,16 +67,16 @@ def generate_bio():
     extra_vars["child_name"] =  request.form.get("adult-child-name")  
 
     childhood_story = "Hi, my name is Ken Burns and I will be telling the story of " + required_vars["name"] + ". "+user_pronouns["possessive_adj"].capitalize()+" story begins on " + required_vars["birthday"] + " in a place \
-    called " + required_vars["birthplace"] + ". Growing up in "+ required_vars["childhood_location"] + ", "+user_pronouns["possessive_adj"]+" childhood was " + required_vars["childhood_description"] + ".  "
+    called " + required_vars["birthplace"] + ". Growing up in "+ required_vars["childhood_location"] + ", "+user_pronouns["possessive_adj"]+" childhood was " + required_vars["childhood_description"] + ". "
   
-    personal_story = "  Now, "+ required_vars["name"] +" resides in "+ required_vars["curr_living"] +", spending "+user_pronouns["possessive_adj"]+" free time doing the things "+user_pronouns["subject"]+" love such as \
+    personal_story = "Now, "+ required_vars["name"] +" resides in "+ required_vars["curr_living"] +", spending "+user_pronouns["possessive_adj"]+" free time doing the things "+user_pronouns["subject"]+" love such as \
     " +required_vars["hobbies"]+". Although "+ required_vars["name"]+" enjoys "+user_pronouns["possessive_adj"]+" life in "+required_vars["curr_living"]+", "+ required_vars["name"]+" has bigger aspirations. Sometimes, late \
     at night, when everything is quiet and the stars are perfectly aligned,"+required_vars["name"]+" dreams of "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ \
     " biggest accomplishment: "+required_vars["accomplishment"]+". Living such an eventful life, it seems almost impossible to capture it all in one word, but if I had to, I would choose "+required_vars["final_word"]+"."
 
     school_story = ""
     if extra_vars["highschool"]:
-        school_story += "  Maturing through the epic highs and lows of elementary and middle school, "+  required_vars["name"] + " finally began "+user_pronouns["possessive_adj"]+" epic adventure at "+ extra_vars["highschool"] +". "
+        school_story += "Maturing through the epic highs and lows of elementary and middle school, "+  required_vars["name"] + " finally began "+user_pronouns["possessive_adj"]+" epic adventure at "+ extra_vars["highschool"] +". "
     
     if extra_vars["fav_subject"]:
         school_story += "Despite riding the emotionally charged rollercoaster that high school is, nothing brightened "+user_pronouns["possessive_adj"]+" days more than attending "+ extra_vars["fav_subject"] +". "
@@ -92,7 +93,7 @@ def generate_bio():
     adulthood_story = ""
 
     if extra_vars["job"] and extra_vars["job_location"]:
-        adulthood_story += "  The struggles of real life hit when "+user_pronouns["subject"]+" started "+user_pronouns["possessive_adj"]+" first job as a "+ extra_vars["job"]+" at "+extra_vars["job_location"]+". "
+        adulthood_story += "The struggles of real life hit when "+user_pronouns["subject"]+" started "+user_pronouns["possessive_adj"]+" first job as a "+ extra_vars["job"]+" at "+extra_vars["job_location"]+". "
         
     if extra_vars["relationship_status"]:
         adulthood_story += "Currently, "+user_pronouns["possessive_adj"]+" relationship status is "+extra_vars["relationship_status"]+". "
@@ -137,10 +138,10 @@ def convert_pronouns(pronouns):
 def create_audio(biography):
     bio = biography
     language = 'en'
-    name = "soundtrack.mp3"
+    name = "voiceover.mp3"
     myobj = gTTS(text=biography, lang=language, slow=False)
   
-    myobj.save("soundtrack.mp3")
+    myobj.save(name)
 
 '''
 def create_photo(keywords): 
@@ -160,11 +161,28 @@ def generate_image(required_vars, extra_vars):
     final_word =  required_vars["final_word"]
     photoarray = ['Ken Burns', birthday + 'newspaper', birthplace, childhood_location, 'kid being' + childhood_description, curr_living, hobbies, goals, accomplishment, final_word]
 
+    # for item in photoarray: 
+    #     google_crawler = GoogleImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
+    # downloader_threads=4)
+    #     google_crawler.crawl(keyword= item, max_num=3, file_idx_offset='auto', size="medium")
     for item in photoarray: 
-        google_crawler = GoogleImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
-    downloader_threads=4)
-        google_crawler.crawl(keyword= item, max_num=3, file_idx_offset='auto')
+        bing_crawler = BingImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
+            downloader_threads=4)
+        filters = dict(
+            size= 'large',
+            layout= 'square'
+        )
+        bing_crawler.crawl(keyword= item, max_num=3, filters=filters, file_idx_offset='auto')
 
 def generate_video():
-    os.system("ffmpeg -framerate 1 -i img\%06d.jpg -c:v libx264 -r 30 test_output.mp4")
+    os.system("ffmpeg -framerate 1 -i img\%06d.jpg -i voiceover.mp3 -c:v libx264 -r 30 -pix_fmt yuv420p video_output.mp4")
         
+def clear_pregenerated():
+    dir = 'img'
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f))
+    if os.path.exists("voiceover.mp3"):
+        os.remove("voiceover.mp3")
+    if os.path.exists("video_output.mp4"):
+        os.remove("video_output.mp4")
+ 
