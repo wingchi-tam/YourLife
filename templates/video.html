@@ -6,6 +6,7 @@
         <title>YourLife</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel= "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
     </head>
     <body>
@@ -19,11 +20,14 @@
         </div>
         <div class="generated-video-wrapper">
             <div class="generated-video">
-
+                <!-- <audio controls>
+                    <source src= {{ generated_audio }} type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio> -->
             </div>
             <div class="icons">
-                <a id="download-button"></a>
-                <a id="embedded-button"></a>
+                <i class="fa-light fa-arrow-down-to-line"></i>
+                <i class="fa-light fa-code"></i>
             </div>
         <script src="main.js"></script>
     </body>

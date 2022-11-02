@@ -2,8 +2,7 @@ from distutils.log import error
 from lib2to3.pytree import convert
 from flask import Flask, render_template, request
 from gtts import gTTS
-# from icrawler.builtin import GoogleImageCrawler
-
+from icrawler.builtin import GoogleImageCrawler
 app = Flask(__name__)
 
 # @app.route('/')
@@ -15,9 +14,11 @@ biography = ""
 @app.route('/', methods =["GET", "POST"])
 def gfg():
     if request.method == "POST":
-        biography = generate_bio()
-        audio = create_audio(biography)
-        return render_template("index.html", biography=biography, bio_class="user_generated")
+       biography = generate_bio()
+       create_audio(biography)
+       bio_class="user_generated"
+       generate_image()
+       return render_template("index.html", biography=biography, bio_class=bio_class)
     return render_template("index.html", bio_class="hidden")
 
 @app.route('/video')
@@ -143,5 +144,43 @@ def create_audio(biography):
     name = "soundtrack.mp3"
     myobj = gTTS(text=biography, lang=language, slow=False)
   
-    myobj.save(name)
-    return name
+    myobj.save("soundtrack.mp3")
+
+'''
+def create_photo(keywords): 
+    google_crawler = GoogleImageCrawler(storage={'root_dir': 'Image_Dir'})
+    google_crawler.crawl(keyword= keywords, max_num=4)
+'''
+def generate_image():
+    birthday =  request.form.get("childhood-birthday")
+    birthplace =  request.form.get("childhood-birthplace")  
+    childhood_location =  request.form.get("childhood-location")  
+    childhood_description =  request.form.get("childhood-description")
+    curr_living =  request.form.get("personal-location")  
+    hobbies =  request.form.get("personal-hobbies")  
+    goals =  request.form.get("personal-goals")  
+    accomplishment =  request.form.get("personal-accomplishment")
+    pronouns = request.form.get("personal-pronouns")
+    final_word =  request.form.get("personal-description")
+    photoarray = ['Ken Burns', birthday + 'newspaper', birthplace, childhood_location, 'kid being' + childhood_description, curr_living, hobbies, goals, accomplishment, final_word]
+
+    for item in photoarray: 
+        google_crawler = GoogleImageCrawler(storage={'root_dir': 'Image_Dir'}, parser_threads=2,
+    downloader_threads=4)
+        google_crawler.crawl(keyword= item, max_num=3, file_idx_offset='auto')
+        
+
+    
+    #create_photo('Ken Burns')
+    #google_crawler = GoogleImageCrawler(storage={'root_dir': 'Image_Dir'})
+    #google_crawler.crawl(keyword= 'jayson Tatum', max_num=4)
+    # Photo for birthday
+    #birthday =  request.form.get("childhood-birthday") + 'newspaper'
+    #create_photo(birthday)
+    #google_crawler1 = GoogleImageCrawler(storage={'root_dir': 'your_image_dir'})
+    #google_crawler1.crawl(keyword= 'Takeoff', max_num=4, file_idx_offset=0)
+
+    # Photo for birthplace
+    #birthplace =  request.form.get("childhood-birthplace")  
+    #create_photo(birthplace)
+
