@@ -2,7 +2,7 @@
 
 # How to run
 1. Start a virtual environment
-# macOS
+macOS:
 python3 -m venv .venv
 source .venv/bin/activate
 
