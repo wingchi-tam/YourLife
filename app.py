@@ -2,19 +2,22 @@ from distutils.log import error
 from lib2to3.pytree import convert
 from flask import Flask, render_template, request
 from gtts import gTTS
+# from icrawler.builtin import GoogleImageCrawler
+
 app = Flask(__name__)
 
 # @app.route('/')
 # def home():
 #     return render_template('index.html')
 
+biography = ""
+
 @app.route('/', methods =["GET", "POST"])
 def gfg():
     if request.method == "POST":
-       biography = generate_bio()
-       create_audio(biography)
-       bio_class="user_generated"
-       return render_template("index.html", biography=biography, bio_class=bio_class)
+        biography = generate_bio()
+        audio = create_audio(biography)
+        return render_template("index.html", biography=biography, bio_class="user_generated")
     return render_template("index.html", bio_class="hidden")
 
 @app.route('/video')
@@ -137,7 +140,8 @@ def convert_pronouns(pronouns):
 def create_audio(biography):
     bio = biography
     language = 'en'
-  
+    name = "soundtrack.mp3"
     myobj = gTTS(text=biography, lang=language, slow=False)
   
-    myobj.save("soundtrack.mp3")
+    myobj.save(name)
+    return name
