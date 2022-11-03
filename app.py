@@ -138,10 +138,10 @@ def convert_pronouns(pronouns):
 def create_audio(biography):
     bio = biography
     language = 'en'
-    name = "voiceover.mp3"
+    voice_path = os.path.join('generated', 'voiceover.mp3')
     myobj = gTTS(text=biography, lang=language, slow=False)
   
-    myobj.save(name)
+    myobj.save(voice_path)
 
 '''
 def create_photo(keywords): 
@@ -159,30 +159,29 @@ def generate_image(required_vars, extra_vars):
     accomplishment =  required_vars["accomplishment"]
     pronouns = required_vars["pronouns"]
     final_word =  required_vars["final_word"]
-    photoarray = ['Ken Burns', birthday + 'newspaper', birthplace, childhood_location, 'kid being' + childhood_description, curr_living, hobbies, goals, accomplishment, final_word]
+    photoarray = ['Ken Burns', birthday + 'newspaper', birthplace + birthday, childhood_location, 'kid being' + childhood_description, curr_living, hobbies, goals, accomplishment, final_word]
 
-    # for item in photoarray: 
-    #     google_crawler = GoogleImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
-    # downloader_threads=4)
-    #     google_crawler.crawl(keyword= item, max_num=3, file_idx_offset='auto', size="medium")
     for item in photoarray: 
         bing_crawler = BingImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
             downloader_threads=4)
         filters = dict(
             size= 'large',
-            layout= 'square'
+            layout= 'square',
+            type= 'photo'
         )
         bing_crawler.crawl(keyword= item, max_num=3, filters=filters, file_idx_offset='auto')
 
 def generate_video():
-    os.system("ffmpeg -framerate 1 -i img\%06d.jpg -i voiceover.mp3 -c:v libx264 -r 30 -pix_fmt yuv420p video_output.mp4")
+    img_path = os.path.join('img', '%06d.jpg')
+    voice_path = os.path.join('generated', 'voiceover.mp3')
+    output_path = os.path.join('generated', 'video_output.mp4')
+    os.system("ffmpeg -framerate 1 -i "+img_path+" -i "+voice_path+" -c:v libx264 -r 30 -pix_fmt yuv420p "+output_path+"")
         
 def clear_pregenerated():
     dir = 'img'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
-    if os.path.exists("voiceover.mp3"):
-        os.remove("voiceover.mp3")
-    if os.path.exists("video_output.mp4"):
-        os.remove("video_output.mp4")
+    dir = 'generated'
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f))
  
