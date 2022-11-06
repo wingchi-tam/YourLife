@@ -23,14 +23,15 @@ h1 {
  }
 
 
- button {
+button {
     font-size: 16px;
     padding: 5px;
  }
 .website-heading {
     text-align: center;
-    padding-top: 20px;
+    margin-top: 20px;
 }
+
 
 
 form, #generated {
@@ -43,5 +44,12 @@ form, #generated {
 
 .generate-biography {
     text-align: justify;
+}
+
+/* VIDEO */
+
+.generated-video-wrapper {
+    margin-top: 60px;
+    text-align: center;
 }
 

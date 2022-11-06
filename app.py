@@ -169,13 +169,16 @@ def generate_image(required_vars, extra_vars):
             layout= 'square',
             type= 'photo'
         )
-        bing_crawler.crawl(keyword= item, max_num=3, filters=filters, file_idx_offset='auto')
+        bing_crawler.crawl(keyword= item, max_num=1, filters=filters, file_idx_offset='auto')
 
 def generate_video():
     img_path = os.path.join('img', '%06d.jpg')
     voice_path = os.path.join('generated', 'voiceover.mp3')
-    output_path = os.path.join('generated', 'video_output.mp4')
-    os.system("ffmpeg -framerate 1 -i "+img_path+" -i "+voice_path+" -c:v libx264 -r 30 -pix_fmt yuv420p "+output_path+"")
+    output_path = os.path.join('templates', 'video_output.mp4')
+    video = ffmpeg.input(img_path, framerate=1)
+    audio = ffmpeg.input(voice_path)
+    output = ffmpeg.concat(video, audio, r=30, pix_fmt='yuv420p').output(output_path)
+    # os.system("ffmpeg -framerate 1 -i "+img_path+" -i "+voice_path+" -c:v libx264 -r 30 -pix_fmt yuv420p "+output_path+"")
         
 def clear_pregenerated():
     dir = 'img'
