@@ -1,0 +1,6 @@
+ffmpeg-python
+os
+flask
+gtts
+icrawler
+moviepy

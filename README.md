@@ -6,7 +6,7 @@
 - source .venv/bin/activate
 
 2. install dependencies
-- flask, gtts, icrawler, ffmpeg
+- pip install -r dependencies.txt
 
 3. Start flask server
 - python -m flask run
