@@ -7,7 +7,7 @@ import ffmpeg
 import os
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 @app.route('/', methods =["GET", "POST"])
 def gfg():
@@ -21,10 +21,10 @@ def gfg():
 
 @app.route('/video')
 def video():
-    clear_pregenerated()
-    create_audio(biography)
-    generate_image(required_vars, extra_vars)
-    generate_video()
+    # clear_pregenerated()
+    # create_audio(biography)
+    # generate_image(required_vars, extra_vars)
+    # generate_video()
     return render_template('video.html')
 
 if __name__ == '__main__':
@@ -173,8 +173,8 @@ def generate_image(required_vars, extra_vars):
 
 def generate_video():
     img_path = os.path.join('img', '%06d.jpg')
-    voice_path = os.path.join('generated', 'voiceover.mp3')
-    output_path = os.path.join('generated', 'video_output.mp4')
+    voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
+    output_path = os.path.join('static', 'generated', 'video_output.mp4')
     video = ffmpeg.input(img_path, r=1/5)
     audio = ffmpeg.input(voice_path)
     vid_aud_cat = ffmpeg.concat(video, audio, v=1, a=1)
