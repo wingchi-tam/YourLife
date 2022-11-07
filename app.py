@@ -5,7 +5,12 @@ from gtts import gTTS
 from icrawler.builtin import GoogleImageCrawler, BingImageCrawler
 import ffmpeg
 import os
+from ffmpeg_transition import generate_transitions
 
+#CONSTANTS 
+voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
+output_path = os.path.join('static', 'generated', 'final_output.mp4')
+video_path = os.path.join('static', 'generated', 'video.mp4')
 
 app = Flask(__name__, static_folder='static')
 
@@ -159,7 +164,7 @@ def generate_image(required_vars, extra_vars):
     accomplishment =  required_vars["accomplishment"]
     pronouns = required_vars["pronouns"]
     final_word =  required_vars["final_word"]
-    photoarray = ['Ken Burns', birthday + 'newspaper', birthplace + birthday, childhood_location, 'kid being' + childhood_description, curr_living, hobbies, goals, accomplishment, final_word]
+    photoarray = ['Ken Burns', birthday + 'newspaper', birthplace, childhood_location, 'kid being' + childhood_description, curr_living, hobbies, goals, accomplishment, final_word]
 
     for item in photoarray: 
         bing_crawler = BingImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
@@ -169,23 +174,23 @@ def generate_image(required_vars, extra_vars):
             layout= 'square',
             type= 'photo'
         )
-        bing_crawler.crawl(keyword= item, max_num=1, filters=filters, file_idx_offset='auto')
+        bing_crawler.crawl(keyword= item, max_num=2, filters=filters, file_idx_offset='auto')
 
 def generate_video():
-    img_path = os.path.join('img', '%06d.jpg')
-    voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
-    output_path = os.path.join('static', 'generated', 'video_output.mp4')
-    video = ffmpeg.input(img_path, r=1/5)
+    generate_transitions()
+    video = ffmpeg.input('video.mp4')
     audio = ffmpeg.input(voice_path)
     vid_aud_cat = ffmpeg.concat(video, audio, v=1, a=1)
     output = ffmpeg.output(vid_aud_cat, output_path, r=30, pix_fmt='yuv420p').run()
-    # os.system("ffmpeg -framerate 1 -i "+img_path+" -i "+voice_path+" -c:v libx264 -r 30 -pix_fmt yuv420p "+output_path+"")
         
 def clear_pregenerated():
     dir = 'img'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
     dir = 'static/generated'
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f))
+    dir = 'vid'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
  
