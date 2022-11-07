@@ -21,9 +21,9 @@ def gfg():
 
 @app.route('/video')
 def video():
-    # clear_pregenerated()
-    # create_audio(biography)
-    # generate_image(required_vars, extra_vars)
+    clear_pregenerated()
+    create_audio(biography)
+    generate_image(required_vars, extra_vars)
     generate_video()
     return render_template('video.html')
 
