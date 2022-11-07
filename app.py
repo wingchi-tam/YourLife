@@ -21,9 +21,9 @@ def gfg():
 
 @app.route('/video')
 def video():
-    clear_pregenerated()
-    create_audio(biography)
-    generate_image(required_vars, extra_vars)
+    # clear_pregenerated()
+    # create_audio(biography)
+    # generate_image(required_vars, extra_vars)
     generate_video()
     return render_template('video.html')
 
@@ -174,10 +174,11 @@ def generate_image(required_vars, extra_vars):
 def generate_video():
     img_path = os.path.join('img', '%06d.jpg')
     voice_path = os.path.join('generated', 'voiceover.mp3')
-    output_path = os.path.join('templates', 'video_output.mp4')
-    video = ffmpeg.input(img_path, framerate=1)
+    output_path = os.path.join('generated', 'video_output.mp4')
+    video = ffmpeg.input(img_path, r=1/5)
     audio = ffmpeg.input(voice_path)
-    output = ffmpeg.concat(video, audio, r=30, pix_fmt='yuv420p').output(output_path)
+    vid_aud_cat = ffmpeg.concat(video, audio, v=1, a=1)
+    output = ffmpeg.output(vid_aud_cat, output_path, r=30, pix_fmt='yuv420p').run()
     # os.system("ffmpeg -framerate 1 -i "+img_path+" -i "+voice_path+" -c:v libx264 -r 30 -pix_fmt yuv420p "+output_path+"")
         
 def clear_pregenerated():
