@@ -21,10 +21,10 @@ def gfg():
 
 @app.route('/video')
 def video():
-    # clear_pregenerated()
-    # create_audio(biography)
-    # generate_image(required_vars, extra_vars)
-    # generate_video()
+    clear_pregenerated()
+    create_audio(biography)
+    generate_image(required_vars, extra_vars)
+    generate_video()
     return render_template('video.html')
 
 if __name__ == '__main__':
@@ -138,7 +138,7 @@ def convert_pronouns(pronouns):
 def create_audio(biography):
     bio = biography
     language = 'en'
-    voice_path = os.path.join('generated', 'voiceover.mp3')
+    voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
     myobj = gTTS(text=biography, lang=language, slow=False)
   
     myobj.save(voice_path)
@@ -185,7 +185,7 @@ def clear_pregenerated():
     dir = 'img'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
-    dir = 'generated'
+    dir = 'static/generated'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
  
