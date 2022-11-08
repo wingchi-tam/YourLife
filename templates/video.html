@@ -21,15 +21,17 @@
         <div class="generated-video-wrapper">
             <div class="generated-video">
                 <video width="500" height="500" controls>
-                    <source src="{{ url_for('static',filename='generated/video_output.mp4') }}" type="video/mp4">
+                    <source src="{{ url_for('static',filename='generated/final_output.mp4') }}" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
             </div>
             <div class="icons">
                 <p>Share with your friends! </p>
-                <button class="download-button">
-                    <i class="material-symbols-outlined">download</i>
-                </button>
+                <a href="{url_for('download')}">
+                    <button class="download-button">
+                        <i class="material-symbols-outlined">download</i>
+                    </button>
+                </a>
             </div>
     </body>
 </html> 

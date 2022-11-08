@@ -1,8 +1,8 @@
 from distutils.log import error
 from lib2to3.pytree import convert
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from gtts import gTTS
-from icrawler.builtin import GoogleImageCrawler, BingImageCrawler
+from icrawler.builtin import BingImageCrawler
 import ffmpeg
 import os
 from ffmpeg_transition import generate_transitions
@@ -19,8 +19,6 @@ def gfg():
     if request.method == "POST":
         global biography, required_vars, extra_vars
         biography, required_vars, extra_vars = generate_bio()
-        # create_audio(biography)
-        # generate_image()
         return render_template("index.html", biography=biography, bio_class="user_generated")
     return render_template("index.html", bio_class="hidden")
 
@@ -31,6 +29,11 @@ def video():
     generate_image(required_vars, extra_vars)
     generate_video()
     return render_template('video.html')
+
+@app.route("/download")
+def download():
+    return send_file(output_path, as_attachment=True)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -74,10 +77,10 @@ def generate_bio():
     childhood_story = "Hi, my name is Ken Burns and I will be telling the story of " + required_vars["name"] + ". "+user_pronouns["possessive_adj"].capitalize()+" story begins on " + required_vars["birthday"] + " in a place \
     called " + required_vars["birthplace"] + ". Growing up in "+ required_vars["childhood_location"] + ", "+user_pronouns["possessive_adj"]+" childhood was " + required_vars["childhood_description"] + ". "
   
-    personal_story = "Now, "+ required_vars["name"] +" resides in "+ required_vars["curr_living"] +", spending "+user_pronouns["possessive_adj"]+" free time doing the things "+user_pronouns["subject"]+" love such as \
+    personal_story = "Now, "+ required_vars["name"] +" resides in "+ required_vars["curr_living"] +". In "+user_pronouns["possessive_adj"]+" free time, "+ required_vars["name"]+" enjoys doing the things "+user_pronouns["subject"]+" love such as \
     " +required_vars["hobbies"]+". Although "+ required_vars["name"]+" enjoys "+user_pronouns["possessive_adj"]+" life in "+required_vars["curr_living"]+", "+ required_vars["name"]+" has bigger aspirations. Sometimes, late \
-    at night, when everything is quiet and the stars are perfectly aligned,"+required_vars["name"]+" dreams of "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ \
-    " biggest accomplishment: "+required_vars["accomplishment"]+". Living such an eventful life, it seems almost impossible to capture it all in one word, but if I had to, I would choose "+required_vars["final_word"]+"."
+    at night,"+required_vars["name"]+" dreams of "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ \
+    " biggest accomplishment: "+required_vars["accomplishment"]+". Living such an eventful life, it could be described as "+required_vars["final_word"]+"."
 
     school_story = ""
     if extra_vars["highschool"]:
@@ -164,7 +167,7 @@ def generate_image(required_vars, extra_vars):
     accomplishment =  required_vars["accomplishment"]
     pronouns = required_vars["pronouns"]
     final_word =  required_vars["final_word"]
-    photoarray = ['Ken Burns', birthday + 'newspaper', birthplace, childhood_location, 'kid being' + childhood_description, curr_living, hobbies, goals, accomplishment, final_word]
+    photoarray = ['Ken Burns', birthplace, childhood_location, 'kid being' + childhood_description, curr_living, hobbies, goals, accomplishment, final_word]
 
     for item in photoarray: 
         bing_crawler = BingImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
