@@ -130,29 +130,21 @@ def convert_pronouns(pronouns):
         user_pronouns["possessive_pro"] = "his"
         user_pronouns["relative"] = "himself"
         user_pronouns["verb"] = "was"
-
     else:
         user_pronouns["possessive_adj"] = "their"
         user_pronouns["subject"] = "they"
         user_pronouns["possessive_pro"] = "theirs"
         user_pronouns["relative"] = "themself"
         user_pronouns["verb"] = "were"
-
     return user_pronouns
 
 def create_audio(biography):
-    bio = biography
     language = 'en'
     voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
     myobj = gTTS(text=biography, lang=language, slow=False)
   
     myobj.save(voice_path)
 
-'''
-def create_photo(keywords): 
-    google_crawler = GoogleImageCrawler(storage={'root_dir': 'Image_Dir'})
-    google_crawler.crawl(keyword= keywords, max_num=4)
-'''
 def generate_image(required_vars, extra_vars):
     # birthday =  required_vars["birthday"]
     birthplace =  required_vars["birthplace"]  
