@@ -6,6 +6,9 @@
         <title>YourLife</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
     </head>
@@ -15,7 +18,7 @@
                 <h1>YourLife</h1>
             </div>
             <div class="website-subtitle">
-                <h3>Create your “Ken Burns” style documentary with your biography</h3>
+                <h3>Create a “Ken Burns” style documentary with a biography</h3>
             </div>
         </div>
         <div class="generated-video-wrapper">
@@ -27,11 +30,12 @@
             </div>
             <div class="icons">
                 <p>Share with your friends! </p>
-                <a href="{url_for('download')}">
+                <a href="{{url_for('download')}}">
                     <button class="download-button">
                         <i class="material-symbols-outlined">download</i>
                     </button>
                 </a>
             </div>
+        </div>
     </body>
 </html> 

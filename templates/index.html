@@ -6,6 +6,9 @@
         <title>YourLife</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
     </head>
     <body>
@@ -14,10 +17,9 @@
                 <h1>YourLife</h1>
             </div>
             <div class="website-subtitle">
-                <h3>Create your “Ken Burns” style documentary with your biography</h3>
+                <h3>Create a “Ken Burns” style documentary with a biography</h3>
             </div>
         </div>
-
         <div class="website-body">
             <form id="user-inputs" action="{{ url_for('gfg')}}" method="post">
                 <div class="user-name">
@@ -150,7 +152,7 @@
                 </div>
                 <!-- <input type="text" id="bio_text" oninput="countWord()"  rows="10" cols="50"></textarea> -->
                 <!-- <input type="submit" value="Submit"> -->
-                <button onclick="greetings()"> Submit </button> <br>
+                <button class ="submit-button" onclick="greetings()"> Submit </button> <br>
             </form>
             <div class={{ bio_class }} id="generated">
                 <div class="section-heading">
@@ -164,6 +166,5 @@
                 </a>
             </div>
         </div>
-        <script src="main.js"></script>
     </body>
 </html> 

@@ -1,11 +1,9 @@
-from distutils.log import error
-from lib2to3.pytree import convert
 from flask import Flask, render_template, request, send_file
 from gtts import gTTS
 from icrawler.builtin import BingImageCrawler
 import ffmpeg
 import os
-from ffmpeg_transition import generate_transitions
+from moviepy.editor import * 
 
 #CONSTANTS 
 voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
@@ -25,15 +23,14 @@ def gfg():
 @app.route('/video')
 def video():
     clear_pregenerated()
-    create_audio(biography)
-    generate_image(required_vars, extra_vars)
+    # create_audio(biography)
+    # generate_image(required_vars, extra_vars)
     generate_video()
     return render_template('video.html')
 
 @app.route("/download")
 def download():
     return send_file(output_path, as_attachment=True)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -53,7 +50,6 @@ def generate_bio():
     required_vars["pronouns"] = request.form.get("personal-pronouns")
     required_vars["final_word"] =  request.form.get("personal-description")
 
-    #check if required vars were entered
     for key, val in required_vars.items():
         if val == None:
             return "Question" +key+" unanswered, try again"
@@ -74,10 +70,11 @@ def generate_bio():
     extra_vars["children_num"] =  request.form.get("adult-child-number")  
     extra_vars["child_name"] =  request.form.get("adult-child-name")  
 
-    childhood_story = "Hi, my name is Ken Burns and I will be telling the story of " + required_vars["name"] + ". "+user_pronouns["possessive_adj"].capitalize()+" story begins on " + required_vars["birthday"] + " in a place \
-    called " + required_vars["birthplace"] + ". Growing up in "+ required_vars["childhood_location"] + ", "+user_pronouns["possessive_adj"]+" childhood was " + required_vars["childhood_description"] + ". "
+    childhood_story = "Hello, my name is Ken Burns and I will be telling the story of " + required_vars["name"] + "'s life. "+required_vars["name"] +" was born in a place called " + required_vars["birthplace"] + " in \
+    on " + required_vars["birthplace"] + ". "+required_vars["name"]+" spent "+user_pronouns["possessive_adj"]+" childhood growing up in "+ required_vars["childhood_location"] + ". Like many other kids, "+user_pronouns["possessive_adj"]+" \
+    childhood could be described as " + required_vars["childhood_description"] + ". "
   
-    personal_story = "Now, "+ required_vars["name"] +" resides in "+ required_vars["curr_living"] +". In "+user_pronouns["possessive_adj"]+" free time, "+ required_vars["name"]+" enjoys doing the things "+user_pronouns["subject"]+" love such as \
+    personal_story = "Now, "+ required_vars["name"] +" currently resides in "+ required_vars["curr_living"] +". In "+user_pronouns["possessive_adj"]+" free time, "+ required_vars["name"]+" enjoys doing the things "+user_pronouns["subject"]+" love such as \
     " +required_vars["hobbies"]+". Although "+ required_vars["name"]+" enjoys "+user_pronouns["possessive_adj"]+" life in "+required_vars["curr_living"]+", "+ required_vars["name"]+" has bigger aspirations. Sometimes, late \
     at night,"+required_vars["name"]+" dreams of "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ \
     " biggest accomplishment: "+required_vars["accomplishment"]+". Living such an eventful life, it could be described as "+required_vars["final_word"]+"."
@@ -157,7 +154,7 @@ def create_photo(keywords):
     google_crawler.crawl(keyword= keywords, max_num=4)
 '''
 def generate_image(required_vars, extra_vars):
-    birthday =  required_vars["birthday"]
+    # birthday =  required_vars["birthday"]
     birthplace =  required_vars["birthplace"]  
     childhood_location =  required_vars["childhood_location"]  
     childhood_description =  required_vars["childhood_description"]
@@ -165,9 +162,17 @@ def generate_image(required_vars, extra_vars):
     hobbies =  required_vars["hobbies"]  
     goals =  required_vars["goals"]  
     accomplishment =  required_vars["accomplishment"]
-    pronouns = required_vars["pronouns"]
+    # pronouns = required_vars["pronouns"]
     final_word =  required_vars["final_word"]
-    photoarray = ['Ken Burns', birthplace, childhood_location, 'kid being' + childhood_description, curr_living, hobbies, goals, accomplishment, final_word]
+    photoarray = ['Ken Burns', 
+                    birthplace, 
+                    childhood_location, 
+                    'kid being' + childhood_description, 
+                    curr_living, 
+                    hobbies, 
+                    goals, 
+                    accomplishment, 
+                    final_word]
 
     for item in photoarray: 
         bing_crawler = BingImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
@@ -181,19 +186,46 @@ def generate_image(required_vars, extra_vars):
 
 def generate_video():
     generate_transitions()
-    video = ffmpeg.input('video.mp4')
+    video = ffmpeg.input(video_path)
     audio = ffmpeg.input(voice_path)
     vid_aud_cat = ffmpeg.concat(video, audio, v=1, a=1)
     output = ffmpeg.output(vid_aud_cat, output_path, r=30, pix_fmt='yuv420p').run()
+
+def generate_transitions():
+    ListImg = sorted(os.listdir('img'))
+
+    for img in ListImg: 
+        output_path = os.path.join('static', 'vid', str(img)+'.mp4')
+        imgFile = os.path.join('img', img)
+        video = ffmpeg.input(imgFile)
+        effect_video = ffmpeg.zoompan(video, d = 65, z = 'zoom+0.001', s='800x800')
+        output = ffmpeg.output(effect_video, output_path).run()
+    #concatinate all vid 
+
+    ListVid = sorted(os.listdir('static/vid'))
+
+    filenames = []
+    clips = []
+    for filename in ListVid:
+        if filename.endswith('.mp4'):
+            filenames.append(filename)
+
+    sorted(filenames)
+
+    for filename in filenames: 
+        clip = VideoFileClip(os.path.join('static', 'vid', filename))
+        clips.append(clip)
+
+    video = concatenate_videoclips(clips, method='compose')
+    video.write_videofile('static/generated/video.mp4', fps=30)
         
 def clear_pregenerated():
     dir = 'img'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
-    dir = 'static/generated'
+    dir = 'static'
     for f in os.listdir(dir):
-        os.remove(os.path.join(dir, f))
-    dir = 'vid'
+        os.remove(os.path.join(dir, 'generated', f))
     for f in os.listdir(dir):
-        os.remove(os.path.join(dir, f))
+        os.remove(os.path.join(dir, 'vid', f))
  
