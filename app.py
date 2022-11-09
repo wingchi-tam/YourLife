@@ -70,35 +70,35 @@ def generate_bio():
     extra_vars["children_num"] =  request.form.get("adult-child-number")  
     extra_vars["child_name"] =  request.form.get("adult-child-name")  
 
-    childhood_story = "Hello, my name is Ken Burns and I will be telling the story of " + required_vars["name"] + "'s life. "+required_vars["name"] +" was born in a place called " + required_vars["birthplace"] + " in \
-    on " + required_vars["birthplace"] + ". "+required_vars["name"]+" spent "+user_pronouns["possessive_adj"]+" childhood growing up in "+ required_vars["childhood_location"] + ". Like many other kids, "+user_pronouns["possessive_adj"]+" \
+    childhood_story = "Hello, my name is Ken Burns and I will be telling the story of " + required_vars["name"] + "'s life. "+required_vars["name"] +" was born in a place called " + required_vars["birthplace"] + " \
+    on " + required_vars["birthday"] + ". "+required_vars["name"]+" spent "+user_pronouns["possessive_adj"]+" childhood growing up in "+ required_vars["childhood_location"] + ". Like many other kids, "+user_pronouns["possessive_adj"]+" \
     childhood could be described as " + required_vars["childhood_description"] + ". "
   
     personal_story = "Now, "+ required_vars["name"] +" currently resides in "+ required_vars["curr_living"] +". In "+user_pronouns["possessive_adj"]+" free time, "+ required_vars["name"]+" enjoys doing the things "+user_pronouns["subject"]+" love such as \
     " +required_vars["hobbies"]+". Although "+ required_vars["name"]+" enjoys "+user_pronouns["possessive_adj"]+" life in "+required_vars["curr_living"]+", "+ required_vars["name"]+" has bigger aspirations. Sometimes, late \
-    at night,"+required_vars["name"]+" dreams of "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ \
+    at night, "+required_vars["name"]+" dreams of "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ \
     " biggest accomplishment: "+required_vars["accomplishment"]+". Living such an eventful life, it could be described as "+required_vars["final_word"]+"."
 
     school_story = ""
     if extra_vars["highschool"]:
-        school_story += "Maturing through the epic highs and lows of elementary and middle school, "+  required_vars["name"] + " finally began "+user_pronouns["possessive_adj"]+" epic adventure at "+ extra_vars["highschool"] +". "
+        school_story += "Maturing through the epic highs and lows of elementary and middle school, "+ required_vars["name"] + " later attended "+ extra_vars["highschool"] +". "
     
     if extra_vars["fav_subject"]:
-        school_story += "Despite riding the emotionally charged rollercoaster that high school is, nothing brightened "+user_pronouns["possessive_adj"]+" days more than attending "+ extra_vars["fav_subject"] +". "
+        school_story += "Despite the emotionally charged rollercoaster of high school is, "+user_pronouns["subject"]+" enjoyed attending "+ extra_vars["fav_subject"] +". "
         
     if extra_vars["school_activities"]:
-        school_story += "Moreover, when tests and classes didn't fill "+  required_vars["name"] + "'s schedule, "+user_pronouns["subject"]+" really enjoyed participating in "+ extra_vars["school_activities"] +". "
+        school_story += "Moreover, when tests and classes didn't fill "+  required_vars["name"] + "'s schedule, "+user_pronouns["subject"]+" participated in "+ extra_vars["school_activities"] +". "
         
     if extra_vars["college"]:
-        school_story += "Yet, as classes, tests and SATs were crunched, "+  required_vars["name"] + " pushed through the hurdles of everything required by college admissions to finally get into "+user_pronouns["possessive_adj"]+" dream school: "+ extra_vars["college"] +". "
+        school_story += "Afterwards, "+  required_vars["name"] + " pushed through the hurdles to finally get into "+ extra_vars["college"] +". "
 
     if extra_vars["major"]:
-        school_story += "There, the parties, clubs, difficult classes, and stressful environment never stopped "+ required_vars["name"]+" from completing "+user_pronouns["possessive_adj"]+" degree in "+ extra_vars["major"] +". "
+        school_story += "There, "+ required_vars["name"]+" went on to complete "+user_pronouns["possessive_adj"]+" degree in "+ extra_vars["major"] +". "
 
     adulthood_story = ""
 
     if extra_vars["job"] and extra_vars["job_location"]:
-        adulthood_story += "The struggles of real life hit when "+user_pronouns["subject"]+" started "+user_pronouns["possessive_adj"]+" first job as a "+ extra_vars["job"]+" at "+extra_vars["job_location"]+". "
+        adulthood_story += "The struggles of real life hit when "+user_pronouns["subject"]+" started "+user_pronouns["possessive_adj"]+" job as a "+ extra_vars["job"]+" at "+extra_vars["job_location"]+". "
         
     if extra_vars["relationship_status"]:
         adulthood_story += "Currently, "+user_pronouns["possessive_adj"]+" relationship status is "+extra_vars["relationship_status"]+". "
@@ -154,7 +154,6 @@ def generate_image(required_vars, extra_vars):
     hobbies =  required_vars["hobbies"]  
     goals =  required_vars["goals"]  
     accomplishment =  required_vars["accomplishment"]
-    # pronouns = required_vars["pronouns"]
     final_word =  required_vars["final_word"]
     photoarray = ['Ken Burns', 
                     birthplace, 
