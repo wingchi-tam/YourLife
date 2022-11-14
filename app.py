@@ -48,7 +48,6 @@ def generate_bio():
     required_vars["goals"] =  request.form.get("personal-goals")  
     required_vars["accomplishment"] =  request.form.get("personal-accomplishment")
     required_vars["pronouns"] = request.form.get("personal-pronouns")
-    required_vars["final_word"] =  request.form.get("personal-description")
 
     for key, val in required_vars.items():
         if val == None:
@@ -56,39 +55,28 @@ def generate_bio():
 
     user_pronouns = convert_pronouns(required_vars["pronouns"])
 
+    childhood_story = ""+required_vars["name"] +" was born in a place called " + required_vars["birthplace"] + " on " + required_vars["birthday"] + ". \
+    "+required_vars["name"]+" spent "+user_pronouns["possessive_adj"]+" childhood growing up in "+ required_vars["childhood_location"] + ". Like many other kids, "+user_pronouns["possessive_adj"]+" \
+    childhood could be described as " + required_vars["childhood_description"] + ". "
+  
+    personal_story = "Now, "+ required_vars["name"] +" currently resides in "+ required_vars["curr_living"] +". In "+user_pronouns["possessive_adj"]+" free time, "+ required_vars["name"]+" enjoys doing the things "+user_pronouns["subject"]+" love such as \
+    " +required_vars["hobbies"]+". Although "+ required_vars["name"]+" enjoys "+user_pronouns["possessive_adj"]+" life in "+required_vars["curr_living"]+", "+ required_vars["name"]+" has bigger aspirations. Sometimes, "+required_vars["name"]+" dreams of \
+    "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ " biggest accomplishment: "+required_vars["accomplishment"]
+
     #EXTRA VARS
     extra_vars={}
     extra_vars["highschool"] =  request.form.get("school-highschool")
-    extra_vars["fav_subject"]=  request.form.get("school-favorite-subject")   
-    extra_vars["school_activities"] =  request.form.get("school-activities")  
     extra_vars["college"] =  request.form.get("school-college-name")  
     extra_vars["major"] =  request.form.get("school-major")  
     extra_vars["job"] =  request.form.get("adult-job")  
     extra_vars["job_location"] =  request.form.get("adult-job-location")  
-    extra_vars["curr_partner"] =  request.form.get("adult-partner-name")   
-    extra_vars["relationship_status"] =  request.form.get("adult-relationship-status")   
-    extra_vars["children_num"] =  request.form.get("adult-child-number")  
+    extra_vars["children_num"] =  int(request.form.get("adult-child-number"))  
     extra_vars["child_name"] =  request.form.get("adult-child-name")  
-
-    childhood_story = "Hello, my name is Ken Burns and I will be telling the story of " + required_vars["name"] + "'s life. "+required_vars["name"] +" was born in a place called " + required_vars["birthplace"] + " \
-    on " + required_vars["birthday"] + ". "+required_vars["name"]+" spent "+user_pronouns["possessive_adj"]+" childhood growing up in "+ required_vars["childhood_location"] + ". Like many other kids, "+user_pronouns["possessive_adj"]+" \
-    childhood could be described as " + required_vars["childhood_description"] + ". "
-  
-    personal_story = "Now, "+ required_vars["name"] +" currently resides in "+ required_vars["curr_living"] +". In "+user_pronouns["possessive_adj"]+" free time, "+ required_vars["name"]+" enjoys doing the things "+user_pronouns["subject"]+" love such as \
-    " +required_vars["hobbies"]+". Although "+ required_vars["name"]+" enjoys "+user_pronouns["possessive_adj"]+" life in "+required_vars["curr_living"]+", "+ required_vars["name"]+" has bigger aspirations. Sometimes, late \
-    at night, "+required_vars["name"]+" dreams of "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ \
-    " biggest accomplishment: "+required_vars["accomplishment"]+". Living such an eventful life, it could be described as "+required_vars["final_word"]+"."
 
     school_story = ""
     if extra_vars["highschool"]:
         school_story += "Maturing through the epic highs and lows of elementary and middle school, "+ required_vars["name"] + " later attended "+ extra_vars["highschool"] +". "
-    
-    if extra_vars["fav_subject"]:
-        school_story += "Despite the emotionally charged rollercoaster of high school is, "+user_pronouns["subject"]+" enjoyed attending "+ extra_vars["fav_subject"] +". "
-        
-    if extra_vars["school_activities"]:
-        school_story += "Moreover, when tests and classes didn't fill "+  required_vars["name"] + "'s schedule, "+user_pronouns["subject"]+" participated in "+ extra_vars["school_activities"] +". "
-        
+          
     if extra_vars["college"]:
         school_story += "Afterwards, "+  required_vars["name"] + " pushed through the hurdles to finally get into "+ extra_vars["college"] +". "
 
@@ -98,19 +86,16 @@ def generate_bio():
     adulthood_story = ""
 
     if extra_vars["job"] and extra_vars["job_location"]:
-        adulthood_story += "The struggles of real life hit when "+user_pronouns["subject"]+" started "+user_pronouns["possessive_adj"]+" job as a "+ extra_vars["job"]+" at "+extra_vars["job_location"]+". "
-        
-    if extra_vars["relationship_status"]:
-        adulthood_story += "Currently, "+user_pronouns["possessive_adj"]+" relationship status is "+extra_vars["relationship_status"]+". "
-
-    if extra_vars["curr_partner"]:
-        adulthood_story += user_pronouns["possessive_adj"].capitalize()+" favorite activity at home is cuddling with "+extra_vars["curr_partner"]+". " 
-        
+        adulthood_story += ""+user_pronouns["subject"]+" is currently working as "+ extra_vars["job"]+" at "+extra_vars["job_location"]+". "
+             
     if extra_vars["children_num"] != "0" and extra_vars["children_num"] > 1:
-        adulthood_story +=  required_vars["name"] +" is now also raising "+extra_vars["children_num"]+" children. Thanks to their amazing job at being a parent, they're all growing up to be amazing people and their names are "+extra_vars["child_name"]+".  "
+        adulthood_story +=  "Now a parent, "+required_vars["name"]+" has "+extra_vars["children_num"]+" children named "+extra_vars["child_name"]+".  "
     
-    if extra_vars["child_name"]:
-        adulthood_story +=  required_vars["name"] + " is now also raising a child. Thanks to their amazing job at being a parent, they're growing up to be an amazing person and their name is "+extra_vars["child_name"]+".  "
+    if extra_vars["children_num"] == 1:
+        adulthood_story +=  "Now a parent, "+required_vars["name"]+" has a child named "+extra_vars["child_name"]+".  "
+
+    icebreaker_story = ""
+    
 
     generated_bio = childhood_story + school_story + adulthood_story + personal_story
     return generated_bio, required_vars, extra_vars
@@ -154,19 +139,17 @@ def generate_image(required_vars, extra_vars):
     hobbies =  required_vars["hobbies"]  
     goals =  required_vars["goals"]  
     accomplishment =  required_vars["accomplishment"]
-    final_word =  required_vars["final_word"]
-    photoarray = ['Ken Burns', 
-                    birthplace, 
+    
+    photoarray = [birthplace, 
                     childhood_location, 
                     'kid being' + childhood_description, 
                     curr_living, 
                     hobbies, 
                     goals, 
-                    accomplishment, 
-                    final_word]
+                    accomplishment]
 
     for item in photoarray: 
-        bing_crawler = BingImageCrawler(storage={'root_dir': 'img'}, parser_threads=4,
+        bing_crawler = BingImageCrawler(storage={'root_dir': 'img'}, parser_threads=2,
             downloader_threads=4)
         filters = dict(
             size= 'large',
@@ -214,9 +197,10 @@ def clear_pregenerated():
     dir = 'img'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
-    dir = 'static'
+    dir = 'static/generated'
     for f in os.listdir(dir):
-        os.remove(os.path.join(dir, 'generated', f))
+        os.remove(os.path.join(dir, f))
+    dir = 'static/vid'
     for f in os.listdir(dir):
-        os.remove(os.path.join(dir, 'vid', f))
+        os.remove(os.path.join(dir, f))
  

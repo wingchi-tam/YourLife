@@ -17,7 +17,7 @@
                 <h1>YourLife</h1>
             </div>
             <div class="website-subtitle">
-                <h3>Create a “Ken Burns” style documentary with a biography</h3>
+                <h3>Create a “Ken Burns” style documentary about yourself</h3>
             </div>
         </div>
         <div class="website-body">
@@ -35,6 +35,15 @@
                         <h3>Personal Life</h3>
                     </div>
                     <div class="question">
+                        <p>What are their pronouns? *</p>
+                        <input type="radio" id="she-her" value="she-her" name="personal-pronouns">
+                        <label for="she-her">She/her</label><br>
+                        <input type="radio" id="he-him" value="he-him" name="personal-pronouns">
+                        <label for="he-him">He/him</label><br>
+                        <input type="radio" id="they-them" value="they-them" name="personal-pronouns" checked>
+                        <label for="they-them">They/them</label>
+                    </div>
+                    <div class="question">
                         <p>Where do they currently live? *
                         <input type="text" name="personal-location" placeholder="ex: Chicago, Illinois"></p>
                     </div>
@@ -49,19 +58,6 @@
                     <div class="question">
                         <p>What is their biggest accomplishment? *
                         <input type="text" name="personal-accomplishment" placeholder="ex: owning a restaurant"></p>
-                    </div>
-                    <div class="question">
-                        <p>What are their pronouns? *</p>
-                        <input type="radio" id="she-her" value="she-her" name="personal-pronouns">
-                        <label for="she-her">She/her</label><br>
-                        <input type="radio" id="he-him" value="he-him" name="personal-pronouns">
-                        <label for="he-him">He/him</label><br>
-                        <input type="radio" id="they-them" value="they-them" name="personal-pronouns" checked>
-                        <label for="they-them">They/them</label>
-                    </div>
-                    <div class="question">
-                        <p>Describe their current life in one adjective. *
-                        <input type="text" name="personal-description"></p>
                     </div>
                 </div>
                 <div class="childhood-input">
@@ -81,8 +77,8 @@
                         <input type="text" name="childhood-location"></p>
                     </div>
                     <div class="question">
-                        <p>Describe their childhood in three adjectives. *
-                        <input type="text" name="childhood-description" placeholder="ex: fun, silly, and carefree"></p>
+                        <p>Describe their childhood in one adjective. *
+                        <input type="text" name="childhood-description" placeholder="ex: carefree"></p>
                     </div>
                 </div>
                 <div class="school-input">
@@ -92,14 +88,6 @@
                     <div class="question">
                         <p>What high school did they go to?
                         <input type="text" name="school-highschool"></p>
-                    </div>
-                    <div class="question">
-                        <p>What was their favorite subject in high school?
-                        <input type="text" name="school-favorite-subject"></p>
-                    </div>
-                    <div class="question">
-                        <p>What clubs/sports/extracurricular activties did they do?
-                        <input type="text" name="school-activities" placeholder="ex: debate club, basketball, and football"></p>
                     </div>
                     <div class="question">
                         <p>What college/university did they go to?
@@ -121,26 +109,7 @@
                     <div class="question">
                         <p>Where did they work?
                         <input type="text" name="adult-job-location" placeholder="ex: The French Laundry"></p>
-                    </div>
-                    <div class="question">
-                        <p>What is their relationship status?</p>
-                        <input type="radio" id="single" value="single" name="adult-relationship-status">
-                        <label for="single">Single</label><br>
-                        <input type="radio" id="in-a-relationship" value="in a relationship" name="adult-relationship-status">
-                        <label for="in-a-relationship">In a relationship</label><br>
-                        <input type="radio" id="married" value="married" name="adult-relationship-status">
-                        <label for="married">Married</label><br>
-                        <input type="radio" id="widowed-widower" value="widowed-widower" name="adult-relationship-status">
-                        <label for="widowed-widower">Widowed/widower</label>
-                    </div>                
-                    <div class="question">
-                        <p>Who is their current partner?
-                        <input type="text" name="adult-partner-name"> </p>
-                    </div>
-                    <div class="question">
-                        <p>When did they get married?
-                        <input type="text" name="adult-marriage-status" placeholder="ex: September 9, 2019"></p>
-                    </div>
+                    </div>              
                     <div class="question">
                         <p>How many children do they have?
                         <input type="text" name="adult-child-number" value="0"></p>
@@ -150,8 +119,51 @@
                         <input type="text" name="adult-child-name"></p>
                     </div>
                 </div>
-                <!-- <input type="text" id="bio_text" oninput="countWord()"  rows="10" cols="50"></textarea> -->
-                <!-- <input type="submit" value="Submit"> -->
+                <div class="icebreakers-input">
+                    <div class="section-heading">
+                        <h3>Icebreakers</h3>
+                    </div>
+                    <div class="question">
+                        <p>What is their favorite ice cream flavor?
+                        <input type="text" name="ib-ice-cream"></p>
+                    </div>
+                    <div class="question">
+                        <p>If money wasn't a concern, what would they do?
+                        <input type="text" name="ib-dream"></p>
+                    </div>
+                    <div class="question">
+                        <p>What is the song or album they would bring to a deserted island?
+                        <input type="text" name="ib-island-music"></p>
+                    </div>
+                    <div class="question">
+                        <p>Who would you add to Mount Rushmore?
+                        <input type="text" name="ib-rushmore"></p>
+                    </div>
+                    <div class="question">
+                        <p>What fictional world or place would you like to visit?
+                        <input type="text" name="ib-fictional-place"></p>
+                    </div>
+                    <div class="question">
+                        <p>You can have an unlimited supply of one thing for the rest of your life, what is it?
+                        <input type="text" name="ib-unlimited-supply"></p>
+                    </div>
+                    <div class="question">
+                        <p>If you could see one movie again for the first time, what would it be?
+                        <input type="text" name="ib-first-movie"></p>
+                    </div>
+                    <div class="question">
+                        <p>If you could be in any show you wanted, what character would you be?
+                        <input type="text" name="ib-character"></p>
+                    </div>
+                    <div class="question">
+                        <p>What is your ideal superpower?
+                        <input type="text" name="ib-superpower"></p>
+                    </div>
+                    <div class="question">
+                        <p>If you could choose any person from history to be your imaginary friend, who would it be?
+                        <input type="text" name="ib-history-friend"></p>
+                    </div>
+                </div>
                 <button class ="submit-button" onclick="greetings()"> Submit </button> <br>
             </form>
             <div class={{ bio_class }} id="generated">
