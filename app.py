@@ -4,6 +4,7 @@ from icrawler.builtin import BingImageCrawler
 import ffmpeg
 import os
 from moviepy.editor import * 
+import random 
 
 #CONSTANTS 
 voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
@@ -168,11 +169,20 @@ def generate_video():
 def generate_transitions():
     ListImg = sorted(os.listdir('img'))
 
+    #9 effects 
+    #top left(0, 0), top (iw/2-(iw/zoom/2), 0), top right (ow, 0), right (ow, ih/2-(ih/zoom/2)), bottom right(ow, oh), 
+    #bottom (iw/2-(iw/zoom/2), oh), bottom left (ow, 0), left (0, ih/2-(ih/zoom/2)), middle (iw/2-(iw/zoom/2), ih/2-(ih/zoom/2))
+    possible_transtiion = [("0", "0"), ("iw/2-(iw/zoom/2)", "0"), ("ow", "0"), 
+                           ("ow", "ih/2-(ih/zoom/2)"), ("ow", "oh"), ("iw/2-(iw/zoom/2)", "oh"), 
+                           ("ow", "0"), ("0", "ih/2-(ih/zoom/2)"), ("iw/2-(iw/zoom/2)", "ih/2-(ih/zoom/2)")]
+
     for img in ListImg: 
         output_path = os.path.join('static', 'vid', str(img)+'.mp4')
         imgFile = os.path.join('img', img)
         video = ffmpeg.input(imgFile)
-        effect_video = ffmpeg.zoompan(video, d = 65, z = 'zoom+0.001', s='800x800')
+        scaled_video = ffmpeg.filter(video, "scale", height = 8000, width = -1)
+        transition = random.choice(possible_transtiion)
+        effect_video = ffmpeg.zoompan(scaled_video, x = transition[0], y = transition[1], d = 65, z = 'zoom+0.001', s='800x800')
         output = ffmpeg.output(effect_video, output_path).run()
     #concatinate all vid 
 
@@ -197,10 +207,10 @@ def clear_pregenerated():
     dir = 'img'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
-    dir = 'static/generated'
+    dir = 'static/vid'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
-    dir = 'static/vid'
+    dir = 'static/generated'
     for f in os.listdir(dir):
         os.remove(os.path.join(dir, f))
  
