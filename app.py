@@ -12,6 +12,11 @@ voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
 output_path = os.path.join('static', 'generated', 'final_output.mp4')
 video_path = os.path.join('static', 'generated', 'video.mp4')
 
+#class declaractions
+class timestamps:
+    def __init__(self):
+        self.dict = {}
+
 app = Flask(__name__, static_folder='static')
 
 @app.route('/', methods =["GET", "POST"])
@@ -138,6 +143,7 @@ def create_audio(biography):
         audio_obj.save(voice_path)
         audio = MP3(file_name)
         timestamps[key] = audio.info.length
+    
   
 def generate_image(required_vars, extra_vars):
     # birthday =  required_vars["birthday"]
