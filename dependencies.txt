@@ -1,6 +1,8 @@
-ffmpeg-python
-os
 flask
 gtts
 icrawler
+ffmpeg-python
+os
 moviepy
+random
+mutagen

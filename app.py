@@ -5,6 +5,7 @@ import ffmpeg
 import os
 from moviepy.editor import * 
 import random 
+from mutagen.mp3 import MP3
 
 #CONSTANTS 
 voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
@@ -71,9 +72,9 @@ def generate_bio():
     extra_vars["major"] =  request.form.get("school-major")   
     extra_vars["children_num"] =  int(request.form.get("adult-child-number"))  
     extra_vars["child_name"] =  request.form.get("adult-child-name") 
-    extra_vars["ice-cream"] = request.form.get("ib-ice-cream") 
-    extra_vars["island-music"] = request.form.get("ib-island-music")
-    extra_vars["fictional-world"] = request.form.get("ib-fictional-place")
+    extra_vars["ice_cream"] = request.form.get("ib-ice-cream") 
+    extra_vars["island_music"] = request.form.get("ib-island-music")
+    extra_vars["fictional_world"] = request.form.get("ib-fictional-place")
 
     school_story = ""
     if extra_vars["highschool"]:
@@ -93,13 +94,13 @@ def generate_bio():
         adulthood_story +=  "Now a parent, "+required_vars["name"]+" has a child named "+extra_vars["child_name"]+".  "
 
     icebreaker_story = ""
-    if extra_vars["ice-cream"]:
+    if extra_vars["ice_cream"]:
         icebreaker_story += required_vars["name"] + "'s favorite ice cream flavor is "+extra_vars["ice-cream"]+". "
 
-    if extra_vars["island-music"]:
+    if extra_vars["island_music"]:
         icebreaker_story += "If "+required_vars["name"]+" was stranded on a deserted island with only one thing to listen to, it would be "+extra_vars["island-music"]+". "
 
-    if extra_vars["fictional-world"]:
+    if extra_vars["fictional_world"]:
         icebreaker_story += "If "+user_pronouns["subject"]+" had the opportunity to travel to a fictional place, it would be "+extra_vars["fictional-world"]+ ". "
     generated_bio = childhood_story + school_story + adulthood_story + personal_story + icebreaker_story
     return generated_bio, required_vars, extra_vars
@@ -129,11 +130,15 @@ def convert_pronouns(pronouns):
 
 def create_audio(biography):
     language = 'en'
-    voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
-    myobj = gTTS(text=biography, lang=language, slow=False)
+    timestamps = {}
+    for key, val in required_vars.items():
+        file_name = key + ".mp3"
+        voice_path = os.path.join('static', 'generated', file_name)
+        audio_obj = gTTS(text=biography, lang=language, slow=False)
+        audio_obj.save(voice_path)
+        audio = MP3(file_name)
+        timestamps[key] = audio.info.length
   
-    myobj.save(voice_path)
-
 def generate_image(required_vars, extra_vars):
     # birthday =  required_vars["birthday"]
     birthplace =  required_vars["birthplace"]  
