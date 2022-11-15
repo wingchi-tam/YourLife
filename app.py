@@ -71,9 +71,17 @@ def generate_bio():
     extra_vars["major"] =  request.form.get("school-major")   
     extra_vars["children_num"] =  int(request.form.get("adult-child-number"))  
     extra_vars["child_name"] =  request.form.get("adult-child-name") 
-    extra_vars["ice-cream"] = request.form.get("ib-ice-cream") 
-    extra_vars["island-music"] = request.form.get("ib-island-music")
-    extra_vars["fictional-world"] = request.form.get("ib-fictional-place")
+    extra_vars["ice_cream"] = request.form.get("ib-ice-cream") 
+    extra_vars["money_concern"] = request.form.get("ib-dream")
+    extra_vars["island_music"] = request.form.get("ib-island-music")
+    extra_vars["mt_rushmore"] = request.form.get("ib-rushmore")
+    extra_vars["fictional_world"] = request.form.get("ib-fictional-place")
+    extra_vars["one_movie"] = request.form.get("ib-first-movie")
+    extra_vars["unlimited_supply"] = request.form.get("ib-unlimited-supply")
+    extra_vars["tv_character"] = request.form.get("ib-character")
+    extra_vars["superpower"] = request.form.get("ib-superpower")
+    extra_vars["history_friend"] = request.form.get("ib-history-friend")
+
 
     school_story = ""
     if extra_vars["highschool"]:
@@ -93,14 +101,27 @@ def generate_bio():
         adulthood_story +=  "Now a parent, "+required_vars["name"]+" has a child named "+extra_vars["child_name"]+".  "
 
     icebreaker_story = ""
-    if extra_vars["ice-cream"]:
+    if extra_vars["ice_cream"]:
         icebreaker_story += required_vars["name"] + "'s favorite ice cream flavor is "+extra_vars["ice-cream"]+". "
-
-    if extra_vars["island-music"]:
-        icebreaker_story += "If "+required_vars["name"]+" was stranded on a deserted island with only one thing to listen to, it would be "+extra_vars["island-music"]+". "
-
-    if extra_vars["fictional-world"]:
-        icebreaker_story += "If "+user_pronouns["subject"]+" had the opportunity to travel to a fictional place, it would be "+extra_vars["fictional-world"]+ ". "
+     if extra_vars["money_concern"]:
+        icebreaker_story += "If money wasn't a concern for " required_vars["name"] + ", the first thing " + user_pronouns["subject"]+ "would buy is " extra_vars["money_concern"]+". "
+    if extra_vars["island_music"]:
+        icebreaker_story += "If "+required_vars["name"]+" was stranded on a deserted island with only one thing to listen to, it would be "+extra_vars["island_music"]+". "
+    if extra_vars["mt_rushmore"]:
+        icebreaker_story += "if" + requred_vars["name"] + " could add any person from history to Mr. Rushmore, " + user_pronouns["subject"] + " would choose " + extra_vars["mt_rushmore"]+ ". "
+    if extra_vars["fictional_world"]:
+        icebreaker_story += "If "+ user_pronouns["subject"]+" had the opportunity to travel to a fictional place, it would be "+extra_vars["fictional_world"]+ ". "
+    if extra_vars["unlimited_supply"]:
+        icebreaker_story += "If "+ required_vars["name"] +" had an unlimited supply of one thing for the rest of " + user_pronouns[possessive_adj] + "life, " + user_pronouns["subject"] + "would choose " + extra_vars["unlimited_supply"]+ ". "
+    if extra_vars["one_movie"]:
+        icebreaker_story += "If " + required_vars["name"] + " could only see one movie for the rest of " + user_pronouns["possessive_adj"] + " life, " + user_pronouns["subject"] + " would choose " + extra_vars["one_movie"]+ ". "
+    if extra_vars["tv_character"]: 
+        icebreaker_story += "If " + required_vars["name"] + " could be a character in any TV show, " + user_pronouns["subject"] + " would be " + extra_vars["tv_character"]+ ". "
+    if extra_vars["superpower"]: 
+        icebreaker_story += "If " + required_vars["name"] + " could have any superpower, " + user_pronouns["subject"], " would choose to have " + extra_vars["superpower"] + ". "
+    if extra_vars["history_friend"]: 
+        icebreaker_story += "If " + required_vars["name"] + " could choose any person from history to be " + user_pronouns["possessive_adj"] + " imaginary friend, " + user_pronouns["subject"] + " would choose " + extra_vars["history_friend"] + ". ".
+    
     generated_bio = childhood_story + school_story + adulthood_story + personal_story + icebreaker_story
     return generated_bio, required_vars, extra_vars
 
@@ -143,20 +164,43 @@ def generate_image(required_vars, extra_vars):
     hobbies =  required_vars["hobbies"]  
     goals =  required_vars["goals"]  
     accomplishment =  required_vars["accomplishment"]
-    ice_cream = extra_vars["ice-cream"] 
-    island_music = extra_vars["island-music"] 
-    fictional_world = extra_vars["fictional-world"]
-
     photoarray = [birthplace, 
                     childhood_location, 
                     'kid being' + childhood_description, 
                     curr_living, 
                     hobbies, 
                     goals, 
-                    accomplishment,
-                    ice_cream + ' ice cream',
-                    island_music,
-                    fictional_world]
+                    accomplishment]
+    if extra_vars["ice_cream"]: 
+        ice_cream = extra_vars["ice_cream"] + " ice cream" 
+        photoarray.append(ice_cream)
+    if extra_vars["money_concern"]: 
+        money_concern = extra_vars["money_concern"] 
+        photoarray.append(money_concern)
+    if extra_vars["island_music"]: 
+        island_music = extra_vars["island_music"] 
+        photoarray.append(island_music)
+    if extra_vars["mt_rushmore"]: 
+        mt_rushmore = extra_vars["mt_rushmore"]
+        photoarray.append(mt_rushmore)
+    if extra_vars["fictional_world"]: 
+        fictional_world = extra_vars["fictional_world"]
+        photoarray.append(fictional_world)
+    if extra_vars["unlimited_supply"]: 
+        unlimited_supply = extra_vars["unlimited_supply"]
+        photoarray.append(unlimited_supply)
+    if extra_vars["one_movie"]: 
+        one_movie = extra_vars["one_movie"]
+        photoarray.append(one_movie)
+    if extra_vars["tv_character"]: 
+        tv_character = extra_vars["tv_character"]
+        photoarray.append(tv_character)
+    if extra_vars["superpower"]: 
+        superpower = extra_vars["superpower"]
+        photoarray.append(superpower)
+    if extra_vars["history_friend"]: 
+        history_friend = extra_vars["history_friend"]
+        photoarray.append(history_friend)
 
     for item in photoarray: 
         bing_crawler = BingImageCrawler(storage={'root_dir': 'img'}, parser_threads=2,
