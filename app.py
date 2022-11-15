@@ -62,17 +62,18 @@ def generate_bio():
   
     personal_story = "Now, "+ required_vars["name"] +" currently resides in "+ required_vars["curr_living"] +". In "+user_pronouns["possessive_adj"]+" free time, "+ required_vars["name"]+" enjoys doing the things "+user_pronouns["subject"]+" love such as \
     " +required_vars["hobbies"]+". Although "+ required_vars["name"]+" enjoys "+user_pronouns["possessive_adj"]+" life in "+required_vars["curr_living"]+", "+ required_vars["name"]+" has bigger aspirations. Sometimes, "+required_vars["name"]+" dreams of \
-    "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ " biggest accomplishment: "+required_vars["accomplishment"]
+    "+ required_vars["goals"] +". Until then, "+ required_vars["name"]+" relishes on "+user_pronouns["possessive_adj"]+ " biggest accomplishment: "+required_vars["accomplishment"]+". "
 
     #EXTRA VARS
     extra_vars={}
     extra_vars["highschool"] =  request.form.get("school-highschool")
     extra_vars["college"] =  request.form.get("school-college-name")  
-    extra_vars["major"] =  request.form.get("school-major")  
-    extra_vars["job"] =  request.form.get("adult-job")  
-    extra_vars["job_location"] =  request.form.get("adult-job-location")  
+    extra_vars["major"] =  request.form.get("school-major")   
     extra_vars["children_num"] =  int(request.form.get("adult-child-number"))  
-    extra_vars["child_name"] =  request.form.get("adult-child-name")  
+    extra_vars["child_name"] =  request.form.get("adult-child-name") 
+    extra_vars["ice-cream"] = request.form.get("ib-ice-cream") 
+    extra_vars["island-music"] = request.form.get("ib-island-music")
+    extra_vars["fictional-world"] = request.form.get("ib-fictional-place")
 
     school_story = ""
     if extra_vars["highschool"]:
@@ -84,11 +85,7 @@ def generate_bio():
     if extra_vars["major"]:
         school_story += "There, "+ required_vars["name"]+" went on to complete "+user_pronouns["possessive_adj"]+" degree in "+ extra_vars["major"] +". "
 
-    adulthood_story = ""
-
-    if extra_vars["job"] and extra_vars["job_location"]:
-        adulthood_story += ""+user_pronouns["subject"]+" is currently working as "+ extra_vars["job"]+" at "+extra_vars["job_location"]+". "
-             
+    adulthood_story = ""         
     if extra_vars["children_num"] != "0" and extra_vars["children_num"] > 1:
         adulthood_story +=  "Now a parent, "+required_vars["name"]+" has "+extra_vars["children_num"]+" children named "+extra_vars["child_name"]+".  "
     
@@ -96,9 +93,15 @@ def generate_bio():
         adulthood_story +=  "Now a parent, "+required_vars["name"]+" has a child named "+extra_vars["child_name"]+".  "
 
     icebreaker_story = ""
-    
+    if extra_vars["ice-cream"]:
+        icebreaker_story += required_vars["name"] + "'s favorite ice cream flavor is "+extra_vars["ice-cream"]+". "
 
-    generated_bio = childhood_story + school_story + adulthood_story + personal_story
+    if extra_vars["island-music"]:
+        icebreaker_story += "If "+required_vars["name"]+" was stranded on a deserted island with only one thing to listen to, it would be "+extra_vars["island-music"]+". "
+
+    if extra_vars["fictional-world"]:
+        icebreaker_story += "If "+user_pronouns["subject"]+" had the opportunity to travel to a fictional place, it would be "+extra_vars["fictional-world"]+ ". "
+    generated_bio = childhood_story + school_story + adulthood_story + personal_story + icebreaker_story
     return generated_bio, required_vars, extra_vars
 
 def convert_pronouns(pronouns):
@@ -140,14 +143,20 @@ def generate_image(required_vars, extra_vars):
     hobbies =  required_vars["hobbies"]  
     goals =  required_vars["goals"]  
     accomplishment =  required_vars["accomplishment"]
-    
+    ice_cream = extra_vars["ice-cream"] 
+    island_music = extra_vars["island-music"] 
+    fictional_world = extra_vars["fictional-world"]
+
     photoarray = [birthplace, 
                     childhood_location, 
                     'kid being' + childhood_description, 
                     curr_living, 
                     hobbies, 
                     goals, 
-                    accomplishment]
+                    accomplishment,
+                    ice_cream + ' ice cream',
+                    island_music,
+                    fictional_world]
 
     for item in photoarray: 
         bing_crawler = BingImageCrawler(storage={'root_dir': 'img'}, parser_threads=2,
