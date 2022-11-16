@@ -33,7 +33,7 @@ class timestampsObj:
     def add_time(self, key, length):
         if self.keywords.get(key) == None:
             self.keywords[key] = keywordObj(key)
-        self.keywords[key].length = length
+        self.keywords[key].time = length
     def add_value(self, key, value):
         if self.keywords.get(key) == None:
             self.keywords[key] = keywordObj(key)
@@ -61,10 +61,9 @@ class timestampsObj:
         if self.keywords.get(key) != None:
             return self.keywords.get(key).index
     def find_key_from_index(self, index):
-        for key in self.get_keywords():
-            if index in self.get_index(key):
-                print(index)
-                return key
+        for i in self.get_keywords():
+            if index in self.get_index(i):
+                return i
     
 global timestamp
 timestamp = timestampsObj()
@@ -76,7 +75,7 @@ def add_to_photoarray(keyword, index, photoarray):
             val = timestamp.get_value(keyword) + " ice cream" 
         else:
             val = timestamp.get_value(keyword)
-        timestamp.add_index(val,[index, index+1])
+        timestamp.add_index(keyword, [index, index+1])
         index+=2
         photoarray.append(val)
     return index
@@ -92,9 +91,9 @@ def gfg():
 
 @app.route('/video')
 def video():
-    #clear_pregenerated()
-    #create_audio()
-    #generate_image()
+    clear_pregenerated()
+    create_audio()
+    generate_image()
     generate_video()
     return render_template('video.html')
 
@@ -242,6 +241,7 @@ def create_audio():
             audio_obj = gTTS(text=text, lang='en', slow=False)
             audio_obj.save(voice_path)
             audio = MP3(voice_path)
+            print("length: ", audio.info.length)
             timestamp.add_time(key, audio.info.length)
     voice_path = os.path.join('static', 'generated', 'voiceover.mp3')
     text = timestamp.get_story("generated_bio")
@@ -319,9 +319,11 @@ def generate_transitions():
         scaled_video = ffmpeg.filter(video, "scale", height = 8000, width = -1)
         transition = random.choice(possible_transtiion)
         img_name = int(img.split(".")[0])
-        print(img_name)
         curr_key = timestamp.find_key_from_index(img_name)
-        curr_length = (timestamp.get_time(curr_key)/2)*30 #two images so need to divide the length of time by two, times 30 fps to get the
+        #two images so need to divide the length of time by two, times 30 fps to get the duration
+        print("time of video: ", timestamp.get_time(curr_key))
+        curr_length = (timestamp.get_time(curr_key)/2)*25 
+        print("calculated frames: ", curr_length)
         effect_video = ffmpeg.zoompan(scaled_video, x = transition[0], y = transition[1], d = curr_length, z = 'zoom+0.001', s='800x800')
         output = ffmpeg.output(effect_video, output_path).run()
 
